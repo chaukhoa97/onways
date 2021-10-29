@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import { useEffect, useRef } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import AccountPage from './Page/AccountPage';
+import CartPage from './Page/CartPage';
+import HomePage from './Page/HomePage';
+import ProductsPage from './Page/ProductsPage';
 import './scss/App.scss';
 
 function App() {
+  const itemsRef = useRef([]);
+  useEffect(() => {
+    axios
+      .get('items.json')
+      .then((items) => (itemsRef.current = items.data))
+      .then(() => console.log(itemsRef.current));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link p-5"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      <Route path="/" exact>
+        <Redirect to="/home" />
+      </Route>
+      <Route path="/home" exact>
+        <HomePage></HomePage>
+      </Route>
+      <Route path="/products" exact>
+        <ProductsPage></ProductsPage>
+      </Route>
+      <Route path="/account" exact>
+        <AccountPage></AccountPage>
+      </Route>
+      <Route path="/cart" exact>
+        <CartPage></CartPage>
+      </Route>
+    </Switch>
   );
 }
 
