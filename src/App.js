@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { itemsActions } from './Redux/items';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch('asdpojasopdjaspodjop');
   useEffect(() => {
     axios
       .get('items.json')
