@@ -3,9 +3,9 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import {
   faCartPlus,
   faCartShopping,
+  faHeart,
   faStar,
   faTrash,
-  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React from 'react';
@@ -16,17 +16,16 @@ import App from './App';
 import './index.css';
 import store from './Redux/store';
 import reportWebVitals from './reportWebVitals';
-library.add(far, faStar, faUser, faTrash, faCartShopping, faCartPlus);
-// import '../node_modules/antd/dist/antd.variable.css';
+library.add(far, faStar, faTrash, faCartShopping, faCartPlus, faHeart);
 axios.defaults.baseURL = 'https://react-e8310-default-rtdb.firebaseio.com/';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
         <App />
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

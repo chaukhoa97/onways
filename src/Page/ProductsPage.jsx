@@ -1,31 +1,71 @@
-import { Layout, Badge } from 'antd';
-import ProductItem from '../Components/ProductItem';
 import MainLayout from '../Layout/MainLayout';
-const { Header, Footer, Sider, Content } = Layout;
+import { Layout, Row, Col, Tag, Pagination } from 'antd';
+import ProductItem from '../Components/ProductItem';
+import { useWindowSize } from 'react-use';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 
-const i = {
-  id: 1,
-  title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-  price: 109.95,
-  description:
-    'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
-  category: "men's clothing",
-  image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-  rating: {
-    rate: 3.9,
-    count: 120,
-  },
-};
+const { Sider, Content } = Layout;
+const { CheckableTag } = Tag;
+
 const ProductsPage = (props) => {
+  const ITEMS_PER_PAGE = 6;
+  const items = useSelector((store) => store.items.data);
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const currentPageItems = items.slice(
+    currentPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+  const tags = ['Quần áo nam', 'Quần áo nữ', 'Đồ điện tử', 'Trang sức'];
+  const arr = [...Array(5).keys()]; // [0, 1, 2, 3, 4]
+  const { width, height } = useWindowSize();
+  console.log(items);
+
   return (
     <MainLayout>
-      <h1>Products Page</h1>
-      <ProductItem
-        image={i.image}
-        title={i.title}
-        rating={i.rating}
-        price={i.price}
-      ></ProductItem>
+      <Layout>
+        <Sider
+          theme="light"
+          width={width > 425 ? `25%` : `${(width * 3) / 4}px`}
+          breakpoint="xs"
+          collapsedWidth="0"
+          style={{
+            zIndex: 2,
+            height: height,
+            position: width <= 425 && 'fixed',
+          }}
+        >
+          {tags.map((tag) => (
+            <CheckableTag key={tag}>{tag}</CheckableTag>
+          ))}
+        </Sider>
+        <Content className="p-4">
+          <Row gutter={[24, 24]} style={{ justifyContent: 'start' }}>
+            {currentPageItems.map((i) => (
+              <Col span={24} md={12} xl={8} key={i.id}>
+                <ProductItem
+                  title={i.title}
+                  price={i.price}
+                  image={i.image}
+                  rating={i.rating}
+                ></ProductItem>
+              </Col>
+            ))}
+          </Row>
+          <div className="pagination">
+            <Pagination
+              total={items.length}
+              showTotal={(total) => `Tìm thấy ${total} sản phẩm`}
+              defaultPageSize={ITEMS_PER_PAGE}
+              defaultCurrent={1}
+              onChange={handlePageChange}
+            ></Pagination>
+          </div>
+        </Content>
+      </Layout>
     </MainLayout>
   );
 };
