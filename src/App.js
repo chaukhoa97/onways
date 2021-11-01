@@ -1,5 +1,4 @@
 import './scss/App.scss';
-import axios from 'axios';
 import ProductsPage from './Page/ProductsPage';
 import { useEffect, useRef } from 'react';
 import { Button } from 'antd';
@@ -9,6 +8,7 @@ import HomePage from './Page/HomePage';
 import AccountPage from './Page/AccountPage';
 import CartPage from './Page/CartPage';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import { itemsActions } from './Redux/items';
 
 function App() {
@@ -16,9 +16,8 @@ function App() {
   useEffect(() => {
     axios
       .get('items.json')
-      .then((res) => dispatch(itemsActions.update(res.data)));
+      .then((res) => dispatch(itemsActions.firstFetch(res.data)));
   }, [dispatch]);
-
   return (
     <Switch>
       <Route path="/" exact>
