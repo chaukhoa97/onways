@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useRef } from 'react';
 import { itemsActions } from '../Redux/items';
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 const { Sider, Content } = Layout;
@@ -96,7 +97,7 @@ const ProductsPage = (props) => {
               data-rate="4"
               onClick={handleRateChange}
             >
-              <Rate disabled className="fs-5" value="4"></Rate>
+              <Rate disabled className="fs-6" value="4"></Rate>
               <span className="fs-4 ms-3">trở lên</span>
             </div>
             <div
@@ -104,7 +105,7 @@ const ProductsPage = (props) => {
               data-rate="3"
               onClick={handleRateChange}
             >
-              <Rate disabled className="fs-5" value="3"></Rate>
+              <Rate disabled className="fs-6" value="3"></Rate>
               <span className="fs-4 ms-3">trở lên</span>
             </div>
             <div
@@ -112,7 +113,7 @@ const ProductsPage = (props) => {
               data-rate="2"
               onClick={handleRateChange}
             >
-              <Rate disabled className="fs-5" value="2"></Rate>
+              <Rate disabled className="fs-6" value="2"></Rate>
               <span className="fs-4 ms-3">trở lên</span>
             </div>
             <div
@@ -120,7 +121,7 @@ const ProductsPage = (props) => {
               data-rate="1"
               onClick={handleRateChange}
             >
-              <Rate disabled className="fs-5" value="1"></Rate>
+              <Rate disabled className="fs-6" value="1"></Rate>
               <span className="fs-4 ms-3">trở lên</span>
             </div>
           </div>
@@ -175,15 +176,17 @@ const ProductsPage = (props) => {
               <Option value="desc">Giá giảm dần</Option>
             </Select>
           </div>
-          <Row gutter={[24, 24]} style={{ justifyContent: 'start' }}>
+          <Row gutter={[24, 24]}>
             {currentPageItems.map((i) => (
               <Col span={24} md={12} xl={8} key={i.id}>
-                <ProductItem
-                  title={i.title}
-                  price={i.price}
-                  image={i.image}
-                  rating={i.rating}
-                ></ProductItem>
+                <Link to={`/products/${i.id}`}>
+                  <ProductItem
+                    title={i.title}
+                    price={i.price}
+                    image={i.image}
+                    rating={i.rating}
+                  ></ProductItem>
+                </Link>
               </Col>
             ))}
           </Row>

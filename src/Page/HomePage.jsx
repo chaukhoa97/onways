@@ -1,4 +1,3 @@
-import { Layout } from 'antd';
 import MainLayout from '../Layout/MainLayout';
 
 const HomePage = (props) => {
