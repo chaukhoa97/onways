@@ -4,9 +4,6 @@ const { Meta } = Card;
 
 const ProductItem = (props) => {
   let title = props.title;
-  // if (title.length > 35) {
-  //   title = title.slice(0, 30) + '...';
-  // }
 
   function roundHalf(num) {
     return Math.round(num * 2) / 2;
