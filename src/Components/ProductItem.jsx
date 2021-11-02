@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Rate, Card } from 'antd';
 const { Meta } = Card;
 
+export function roundHalf(num) {
+  return Math.round(num * 2) / 2;
+}
+
 const ProductItem = (props) => {
   let title = props.title;
-
-  function roundHalf(num) {
-    return Math.round(num * 2) / 2;
-  }
 
   return (
     <Card

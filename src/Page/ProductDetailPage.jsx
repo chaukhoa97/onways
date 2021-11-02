@@ -4,12 +4,10 @@ import { Layout, Row, Col, Image, Rate, Button } from 'antd';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { roundHalf } from '../Components/ProductItem';
 
 const { Content } = Layout;
 const ProductDetailPage = (props) => {
-  function roundHalf(num) {
-    return Math.round(num * 2) / 2;
-  }
   const params = useParams();
   const id = params.productId;
   const [itemData, setItemData] = useState(null);
