@@ -14,7 +14,7 @@ import ProductDetailPage from './Page/ProductDetailPage';
 import SignUpPage from './Page/SignUpPage';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch('asdpojasopdjaspodjop');
   useEffect(() => {
     axios
       .get('items.json')
