@@ -5,7 +5,7 @@ const { Header, Footer } = Layout;
 
 const MainLayout = (props) => {
   return (
-    <Layout>
+    <Layout className="min-vh-100">
       <Header>
         <div className="header__logo">
           <svg
