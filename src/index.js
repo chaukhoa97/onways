@@ -6,6 +6,8 @@ import {
   faHeart,
   faStar,
   faTrash,
+  faUser,
+  faLock,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React from 'react';
@@ -16,7 +18,16 @@ import App from './App';
 import './index.css';
 import store from './Redux/store';
 import reportWebVitals from './reportWebVitals';
-library.add(far, faStar, faTrash, faCartShopping, faCartPlus, faHeart);
+library.add(
+  far,
+  faStar,
+  faTrash,
+  faCartShopping,
+  faCartPlus,
+  faHeart,
+  faUser,
+  faLock
+);
 axios.defaults.baseURL = 'https://react-e8310-default-rtdb.firebaseio.com/';
 
 ReactDOM.render(

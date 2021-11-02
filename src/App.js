@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { itemsActions } from './Redux/items';
 import ProductDetailPage from './Page/ProductDetailPage';
+import SignUpPage from './Page/SignUpPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
       </Route>
       <Route path="/account" exact>
         <AccountPage></AccountPage>
+      </Route>
+      <Route path="/account/sign-up" exact>
+        <SignUpPage></SignUpPage>
       </Route>
       <Route path="/cart" exact>
         <CartPage></CartPage>
