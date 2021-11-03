@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Layout, Menu, Badge } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 const { Header, Footer } = Layout;
 
 const MainLayout = (props) => {
+  const cartCount = useSelector((store) => store.user.cart.length);
   return (
-    <Layout>
+    <Layout className="min-vh-100">
       <Header>
         <div className="header__logo">
           <svg
@@ -64,14 +67,14 @@ const MainLayout = (props) => {
             <NavLink
               activeClassName="nav-link--active"
               className="mont bold"
-              to="/account"
+              to="/profile"
             >
               Tài khoản
             </NavLink>
           </Menu.Item>
           <Menu.Item style={{ marginLeft: 'auto' }}>
             <NavLink className="mont bold" to="/cart">
-              <Badge count={5} size="small">
+              <Badge count={cartCount} size="small">
                 <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="lg" />
               </Badge>
             </NavLink>

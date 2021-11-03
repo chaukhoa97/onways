@@ -27,6 +27,11 @@
 }
 
 .sider {
+  &__content {
+    position: relative;
+    top: 67px;
+  }
+
   &__filter-type {
     font-weight: bold;
     margin-top: 20px;
@@ -87,4 +92,10 @@
   width: 100px;
   height: 100px;
   animation: donut-spin 1.2s linear infinite;
+}
+
+@media (max-width: 576px) {
+  .sider__content {
+    top: 0;
+  }
 }

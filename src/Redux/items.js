@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const INITIAL_STATE = { dbItems: [], showedItems: [] };
+const INITIAL_STATE = { databaseItems: [], showedItems: [] };
 
 const itemsSlice = createSlice({
   name: 'items',
   initialState: INITIAL_STATE,
   reducers: {
     firstFetch(state, action) {
-      state.dbItems = action.payload;
+      state.databaseItems = action.payload;
       state.showedItems = action.payload;
     },
     filter(state, action) {
       if (action.payload.category.length > 0) {
-        state.showedItems = state.dbItems.filter((item) => {
+        state.showedItems = state.databaseItems.filter((item) => {
           return action.payload.category.includes(item.category);
         });
       } else {
-        state.showedItems = state.dbItems;
+        state.showedItems = state.databaseItems;
       }
       state.showedItems = state.showedItems.filter((item) => {
         return item.rating.rate >= action.payload.rate;
