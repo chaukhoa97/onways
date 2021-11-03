@@ -10,6 +10,7 @@ import CartPage from './Page/CartPage';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { itemsActions } from './Redux/items';
+import ProductDetailPage from './Page/ProductDetailPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
       </Route>
       <Route path="/products" exact>
         <ProductsPage></ProductsPage>
+      </Route>
+      <Route path="/products/:productId" exact>
+        <ProductDetailPage></ProductDetailPage>
       </Route>
       <Route path="/account" exact>
         <AccountPage></AccountPage>
