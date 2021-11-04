@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import CartPage from './Page/CartPage';
@@ -7,9 +6,13 @@ import HomePage from './Page/HomePage';
 import LoginPage from './Page/LoginPage';
 import ProductDetailPage from './Page/ProductDetailPage';
 import ProductsPage from './Page/ProductsPage';
-import ProfilePage from './Page/ProfilePage';
 import { itemsActions } from './Redux/items';
+import UserPage from './Page/UserPage';
+import { useState, useEffect, useCallback, useRef, useContext } from 'react';
+import AdminPage from './Page/AdminPage';
+
 import './scss/App.scss';
+import { syncUser, userActions } from './Redux/user';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +22,12 @@ function App() {
       .then((res) => dispatch(itemsActions.firstFetch(res.data)));
   }, [dispatch]);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const localId = useSelector((store) => store.auth.localId);
+  useEffect(() => {
+    dispatch(syncUser(localId));
+  }, [dispatch, localId]);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+
   return (
     <Switch>
       <Route path="/" exact>
@@ -33,14 +42,25 @@ function App() {
       <Route path="/products/:productId" exact>
         <ProductDetailPage></ProductDetailPage>
       </Route>
-      <Route path="/profile" exact>
-        {isLoggedIn ? <ProfilePage></ProfilePage> : <Redirect to="/login" />}
+
+      <Route path="/user" exact>
+        {isLoggedIn ? (
+          <Redirect to="/user/profile" />
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </Route>
+      <Route path="/user/:mode">
+        {isLoggedIn ? <UserPage></UserPage> : <Redirect to="/login" />}
       </Route>
       <Route path="/login" exact>
-        {isLoggedIn ? <Redirect to="/profile" /> : <LoginPage></LoginPage>}
+        {isLoggedIn ? <Redirect to="/user" /> : <LoginPage></LoginPage>}
       </Route>
       <Route path="/cart" exact>
         <CartPage></CartPage>
+      </Route>
+      <Route path="/admin">
+        {isAdmin ? <AdminPage></AdminPage> : <Redirect to="/user" />}
       </Route>
     </Switch>
   );

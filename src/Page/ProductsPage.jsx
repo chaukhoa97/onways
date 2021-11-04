@@ -1,5 +1,15 @@
 import MainLayout from '../Layout/MainLayout';
-import { Layout, Row, Col, Tag, Pagination, Rate, Select, Divider } from 'antd';
+import {
+  Layout,
+  Row,
+  Col,
+  Tag,
+  Pagination,
+  Rate,
+  Select,
+  Divider,
+  Empty,
+} from 'antd';
 import ProductItem from '../Components/ProductItem';
 import { useWindowSize } from 'react-use';
 import { useSelector, useDispatch } from 'react-redux';
@@ -173,7 +183,11 @@ const ProductsPage = () => {
           <div className="d-flex flex-right">
             <Select
               placeholder="Sắp xếp theo..."
-              style={{ width: 140, marginBottom: '20px', marginLeft: 'auto' }}
+              style={{
+                width: 140,
+                marginBottom: '20px',
+                marginLeft: 'auto',
+              }}
               onChange={handleSortChange}
             >
               <Option value="popularity">Độ phổ biến</Option>
@@ -183,18 +197,24 @@ const ProductsPage = () => {
             </Select>
           </div>
           <Row gutter={[24, 24]}>
-            {currentPageItems.map((i) => (
-              <Col span={24} md={12} xl={8} key={i.id}>
-                <Link to={`/products/${i.id}`}>
-                  <ProductItem
-                    title={i.title}
-                    price={i.price}
-                    image={i.image}
-                    rating={i.rating}
-                  ></ProductItem>
-                </Link>
-              </Col>
-            ))}
+            {showedItems.length === 0 ? (
+              <div className="d-block mx-auto">
+                <Empty />
+              </div>
+            ) : (
+              currentPageItems.map((i) => (
+                <Col span={24} md={12} xl={8} key={i.id}>
+                  <Link to={`/products/${i.id}`}>
+                    <ProductItem
+                      title={i.title}
+                      price={i.price}
+                      image={i.image}
+                      rating={i.rating}
+                    ></ProductItem>
+                  </Link>
+                </Col>
+              ))
+            )}
           </Row>
           <div className="pagination">
             <Pagination

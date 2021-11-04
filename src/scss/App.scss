@@ -1,10 +1,11 @@
 @import './Base/sanitize';
 @import '/node_modules/antd/dist/antd.css';
-@import './Base/global';
-@import './Base/variables';
 @import './Base/utilities';
+@import './Base/variables';
+@import './Base/global';
 
 @import './Layout/header';
 
 @import './Pages/product';
-@import './Pages/account';
+@import './Pages/login';
+@import './Pages/profile';
