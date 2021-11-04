@@ -1,5 +1,5 @@
 import MainLayout from '../Layout/MainLayout';
-import { Layout, Row, Col, Tag, Pagination, Rate, Select } from 'antd';
+import { Layout, Row, Col, Tag, Pagination, Rate, Select, Divider } from 'antd';
 import ProductItem from '../Components/ProductItem';
 import { useWindowSize } from 'react-use';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ const { Sider, Content } = Layout;
 const { CheckableTag } = Tag;
 const ITEMS_PER_PAGE = 6;
 
-const ProductsPage = (props) => {
+const ProductsPage = () => {
   const dispatch = useDispatch();
   let showedItems = useSelector((store) => store.items.showedItems);
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,99 +69,105 @@ const ProductsPage = (props) => {
     <MainLayout>
       <Layout style={{ background: '#afb9c8' }}>
         <Sider
-          width={width > 425 ? `20%` : `${(width * 3) / 4}px`}
+          className="sider"
+          width={width > 425 ? `20%` : `${(width * 3) / 5}px`}
           breakpoint="xs"
           collapsedWidth="0"
           style={{
             zIndex: 2,
-            height: height,
             position: width <= 425 && 'fixed',
-            padding: '0 0 0 10px',
             background: '#afb9c8',
           }}
         >
-          <h2 className="fs-2 sider__filter-type">Danh mục</h2>
-          {tags.map((tag) => (
-            <CheckableTag
-              key={tag}
-              checked={selectedTags.indexOf(tag) > -1}
-              onChange={(checked) => handleTagChange(tag, checked)}
-            >
-              {tag}
-            </CheckableTag>
-          ))}
-          <h2 className="fs-2 sider__filter-type">Đánh giá</h2>
-          <div className="sider__rates">
-            <div
-              className={`sider__rate ${rate == 4 && 'sider__rate--active'}`}
-              data-rate="4"
-              onClick={handleRateChange}
-            >
-              <Rate disabled className="fs-6" value="4"></Rate>
-              <span className="fs-4 ms-3">trở lên</span>
+          <div
+            style={{ background: 'white' }}
+            className="p-4 sider__content  mx-auto"
+          >
+            <h2 className="fs-2 sider__filter-type">Danh mục</h2>
+            {tags.map((tag) => (
+              <CheckableTag
+                key={tag}
+                checked={selectedTags.indexOf(tag) > -1}
+                onChange={(checked) => handleTagChange(tag, checked)}
+              >
+                {tag}
+              </CheckableTag>
+            ))}
+            <Divider />
+            <h2 className="fs-2 sider__filter-type">Đánh giá</h2>
+            <div className="sider__rates">
+              <div
+                className={`sider__rate ${rate == 4 && 'sider__rate--active'}`}
+                data-rate="4"
+                onClick={handleRateChange}
+              >
+                <Rate disabled className="fs-4" value="4"></Rate>
+                <span className="fs-4 ms-3">trở lên</span>
+              </div>
+              <div
+                className={`sider__rate ${rate == 3 && 'sider__rate--active'}`}
+                data-rate="3"
+                onClick={handleRateChange}
+              >
+                <Rate disabled className="fs-4" value="3"></Rate>
+                <span className="fs-4 ms-3">trở lên</span>
+              </div>
+              <div
+                className={`sider__rate ${rate == 2 && 'sider__rate--active'}`}
+                data-rate="2"
+                onClick={handleRateChange}
+              >
+                <Rate disabled className="fs-4" value="2"></Rate>
+                <span className="fs-4 ms-3">trở lên</span>
+              </div>
+              <div
+                className={`sider__rate ${rate == 1 && 'sider__rate--active'}`}
+                data-rate="1"
+                onClick={handleRateChange}
+              >
+                <Rate disabled className="fs-4" value="1"></Rate>
+                <span className="fs-4 ms-3">trở lên</span>
+              </div>
             </div>
-            <div
-              className={`sider__rate ${rate == 3 && 'sider__rate--active'}`}
-              data-rate="3"
-              onClick={handleRateChange}
+            <Divider />
+            <h2 className="fs-2 sider__filter-type">Giá thành</h2>
+            <p
+              className={`sider__price ${
+                priceRange == 0 && 'sider__price--active'
+              }`}
+              data-price-range="0"
+              onClick={handlePriceRangeChange}
             >
-              <Rate disabled className="fs-6" value="3"></Rate>
-              <span className="fs-4 ms-3">trở lên</span>
-            </div>
-            <div
-              className={`sider__rate ${rate == 2 && 'sider__rate--active'}`}
-              data-rate="2"
-              onClick={handleRateChange}
+              Dưới $20
+            </p>
+            <p
+              className={`sider__price ${
+                priceRange == 1 && 'sider__price--active'
+              }`}
+              data-price-range="1"
+              onClick={handlePriceRangeChange}
             >
-              <Rate disabled className="fs-6" value="2"></Rate>
-              <span className="fs-4 ms-3">trở lên</span>
-            </div>
-            <div
-              className={`sider__rate ${rate == 1 && 'sider__rate--active'}`}
-              data-rate="1"
-              onClick={handleRateChange}
+              20 - $100
+            </p>
+            <p
+              className={`sider__price ${
+                priceRange == 2 && 'sider__price--active'
+              }`}
+              data-price-range="2"
+              onClick={handlePriceRangeChange}
             >
-              <Rate disabled className="fs-6" value="1"></Rate>
-              <span className="fs-4 ms-3">trở lên</span>
-            </div>
+              100 - $500
+            </p>
+            <p
+              className={`sider__price ${
+                priceRange == 3 && 'sider__price--active'
+              }`}
+              data-price-range="3"
+              onClick={handlePriceRangeChange}
+            >
+              Trên $500
+            </p>
           </div>
-          <h2 className="fs-2 sider__filter-type">Giá thành</h2>
-          <p
-            className={`sider__price ${
-              priceRange == 0 && 'sider__price--active'
-            }`}
-            data-price-range="0"
-            onClick={handlePriceRangeChange}
-          >
-            Dưới $20
-          </p>
-          <p
-            className={`sider__price ${
-              priceRange == 1 && 'sider__price--active'
-            }`}
-            data-price-range="1"
-            onClick={handlePriceRangeChange}
-          >
-            20 - $100
-          </p>
-          <p
-            className={`sider__price ${
-              priceRange == 2 && 'sider__price--active'
-            }`}
-            data-price-range="2"
-            onClick={handlePriceRangeChange}
-          >
-            100 - $500
-          </p>
-          <p
-            className={`sider__price ${
-              priceRange == 3 && 'sider__price--active'
-            }`}
-            data-price-range="3"
-            onClick={handlePriceRangeChange}
-          >
-            Trên $500
-          </p>
         </Sider>
         <Content className="p-4">
           <div className="d-flex flex-right">

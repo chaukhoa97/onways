@@ -29,52 +29,57 @@ const ProductDetailPage = (props) => {
           </div>
         ) : (
           <Row gutter="60">
-            <Col xs={24} sm={10}>
+            <Col xs={24} sm={10} className="d-flex justify-content-center">
               <Image src={itemData?.image} alt={itemData?.title}></Image>
             </Col>
             <Col xs={24} sm={14}>
-              <h1 className="bold mb-5">{itemData?.title}</h1>
-              <p className="fs-3">{itemData?.description}</p>
-              <div className="d-flex align-items-center">
-                <Rate
-                  className="fs-2"
-                  disabled
-                  value={roundHalf(itemData?.rating.rate)}
-                  allowHalf
-                />
-                <p className="ms-3 mb-0 d-inline roboto fs-3 product__rating-count bold">
-                  {`${itemData?.rating.count} đánh giá`}
-                </p>
-              </div>
-              <p className="fs-1 price my-3">{itemData?.price}</p>
-              <div className="d-flex flex-wrap">
-                <div className="me-4">
+              <div
+                className="detail__content p-5"
+                style={{ background: 'white' }}
+              >
+                <h1 className="bold mb-5">{itemData?.title}</h1>
+                <p className="fs-3">{itemData?.description}</p>
+                <div className="d-flex align-items-center">
+                  <Rate
+                    className="fs-2"
+                    disabled
+                    value={roundHalf(itemData?.rating.rate)}
+                    allowHalf
+                  />
+                  <p className="ms-3 mb-0 d-inline roboto fs-3 product__rating-count bold">
+                    {`${itemData?.rating.count} đánh giá`}
+                  </p>
+                </div>
+                <p className="fs-1 price my-3">{itemData?.price}</p>
+                <div className="d-flex flex-wrap">
+                  <div className="me-4">
+                    <Button
+                      type="primary"
+                      size="large"
+                      icon={
+                        <FontAwesomeIcon
+                          icon="fa-solid fa-cart-plus"
+                          size="lg"
+                          className="me-3"
+                        />
+                      }
+                    >
+                      Thêm vào giỏ hàng
+                    </Button>
+                  </div>
                   <Button
-                    type="primary"
                     size="large"
                     icon={
                       <FontAwesomeIcon
-                        icon="fa-solid fa-cart-plus"
+                        icon="fa-regular fa-heart"
                         size="lg"
                         className="me-3"
                       />
                     }
                   >
-                    Thêm vào giỏ hàng
+                    Yêu thích
                   </Button>
                 </div>
-                <Button
-                  size="large"
-                  icon={
-                    <FontAwesomeIcon
-                      icon="fa-regular fa-heart"
-                      size="lg"
-                      className="me-3"
-                    />
-                  }
-                >
-                  Yêu thích
-                </Button>
               </div>
             </Col>
           </Row>
