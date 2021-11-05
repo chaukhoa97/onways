@@ -1,12 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Layout, Menu, Badge } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import SubMenu from 'antd/lib/menu/SubMenu';
+import { authActions } from '../Redux/auth';
+import { userActions } from '../Redux/user';
 
 const { Header, Footer } = Layout;
 
 const MainLayout = (props) => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const user = useSelector((state) => state.user);
+  const isAdmin = user.isAdmin;
   const cartCount = useSelector((store) => store.user.cart.length);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleUserClick = () => {
+    history.push('/user');
+  };
+  const handleSignout = () => {
+    dispatch(authActions.signOut());
+    dispatch(userActions.signout());
+  };
   return (
     <Layout className="min-vh-100">
       <Header>
@@ -63,21 +78,70 @@ const MainLayout = (props) => {
               Sản phẩm
             </NavLink>
           </Menu.Item>
-          <Menu.Item>
-            <NavLink
-              activeClassName="nav-link--active"
-              className="mont bold"
-              to="/profile"
+          {isAdmin && (
+            <Menu.Item>
+              <NavLink
+                activeClassName="nav-link--active"
+                className="mont bold"
+                to="/admin"
+              >
+                Quản lý
+              </NavLink>
+            </Menu.Item>
+          )}
+          {isLoggedIn ? (
+            <Menu.SubMenu
+              title={user.firstName + ' ' + user.lastName}
+              icon={<FontAwesomeIcon icon="fa-solid fa-user" />}
+              onTitleClick={handleUserClick}
+              style={{ marginLeft: 'auto' }}
             >
-              Tài khoản
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item style={{ marginLeft: 'auto' }}>
-            <NavLink className="mont bold" to="/cart">
-              <Badge count={cartCount} size="small">
-                <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="lg" />
-              </Badge>
-            </NavLink>
+              <Menu.Item>
+                <NavLink
+                  activeClassName="nav-link--active"
+                  className="mont bold"
+                  to="/user/profile"
+                >
+                  Tài khoản của tôi
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item>
+                <NavLink
+                  activeClassName="nav-link--active"
+                  className="mont bold"
+                  to="/user/orders"
+                >
+                  Đơn mua
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item>
+                <NavLink
+                  activeClassName="nav-link--active"
+                  className="mont bold"
+                  to="/user/wish"
+                >
+                  Yêu thích
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item onClick={handleSignout}>
+                <span className="mont bold">Đăng xuất</span>
+              </Menu.Item>
+            </Menu.SubMenu>
+          ) : (
+            <Menu.Item style={{ marginLeft: 'auto' }}>
+              <NavLink className="mont bold" to="/login">
+                Đăng nhập | Đăng ký
+              </NavLink>
+            </Menu.Item>
+          )}
+          <Menu.Item>
+            <Badge count={cartCount} size="small">
+              <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="lg" />
+              <NavLink
+                className="mont bold"
+                to={`${isLoggedIn ? '/cart' : '/login'}`}
+              ></NavLink>
+            </Badge>
           </Menu.Item>
         </Menu>
       </Header>

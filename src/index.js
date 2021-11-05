@@ -8,6 +8,7 @@ import {
   faTrash,
   faUser,
   faLock,
+  faUserPen,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React from 'react';
@@ -26,7 +27,8 @@ library.add(
   faCartPlus,
   faHeart,
   faUser,
-  faLock
+  faLock,
+  faUserPen
 );
 axios.defaults.baseURL = 'https://react-e8310-default-rtdb.firebaseio.com/';
 

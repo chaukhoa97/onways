@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const INITIAL_STATE = {
   databaseId: '',
@@ -16,11 +17,14 @@ const userSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setUser: (state, action) => {
-      state.firstName = action.payload.firstName || '';
-      state.lastName = action.payload.lastName || '';
-      state.phone = action.payload.phone || '';
+      return {
+        ...state,
+        ...action.payload,
+      };
     },
-
+    signout: () => {
+      return INITIAL_STATE;
+    },
     addToCart: (state, action) => {
       const product = action.payload;
       const productIndex = state.cart.findIndex((p) => p.id === product.id);
@@ -54,6 +58,18 @@ const userSlice = createSlice({
     },
   },
 });
+
+export const syncUser = (localId) => {
+  return async (dispatch) => {
+    axios
+      .get(`users.json?orderBy="localId"&equalTo="${localId}"`)
+      .then((res) => {
+        Object.entries(res.data).forEach(([key, value]) => {
+          dispatch(userActions.setUser(value));
+        });
+      });
+  };
+};
 
 export const userActions = userSlice.actions;
 export default userSlice.reducer;
