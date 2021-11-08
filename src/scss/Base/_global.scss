@@ -32,9 +32,24 @@ h5,
 }
 
 .ant-layout {
-  background: #afb9c8;
+  background: $deutzia-white;
 }
 
 .bg-white {
   background-color: $white !important;
+}
+
+.ant-descriptions-item-label,
+.ant-descriptions-item-content {
+  text-align: center;
+}
+
+.ant-descriptions-title,
+.ant-page-header-heading-title {
+  font-size: 2rem;
+  color: $kakitsubata-blue;
+}
+
+.error {
+  color: $blood-burst;
 }
