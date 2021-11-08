@@ -1,49 +1,14 @@
-import { Button, Modal, Table, Tooltip } from 'antd';
+import { Button, Modal, Select, Table } from 'antd';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../Redux/user';
 import { adminActions } from '../../Redux/admin';
+import { handleItemsDetail } from '../User/Orders';
 
-export const handleItemsDetail = (items) => {
-  const columns = [
-    {
-      title: 'Sản phẩm',
-      dataIndex: 'data',
-      key: 'title & image',
-      align: 'center',
-      render: (data) => (
-        <div className="d-flex align-items-center">
-          <img
-            src={data.image}
-            alt="product image"
-            style={{ width: '50px', marginRight: '10px' }}
-          />
-          <p className="mb-0 ms-2 bold">{data.title}</p>
-        </div>
-      ),
-    },
-    {
-      title: 'Giá',
-      dataIndex: ['data', 'price'],
-      key: 'price',
-    },
-    {
-      title: 'Số lượng',
-      dataIndex: ['data', 'count'],
-      key: 'count',
-    },
-  ];
-  Modal.info({
-    title: 'Chi tiết đơn hàng',
-    width: '80%',
-    content: <Table dataSource={items} columns={columns} pagination={false} />,
-  });
-};
-
-const Orders = () => {
+const AdminOrders = () => {
+  const { Option } = Select;
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.user.orders);
+  const orders = useSelector((state) => state.admin.orders);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
 
@@ -58,9 +23,15 @@ const Orders = () => {
 
   const handleConfirmDelete = useCallback(
     (id) => {
-      dispatch(userActions.deleteOrder(id));
       dispatch(adminActions.deleteOrder(id));
       setShowDelete(false);
+    },
+    [dispatch]
+  );
+
+  const handleStatus = useCallback(
+    (value, id) => {
+      dispatch(adminActions.updateOrder({ status: value, id }));
     },
     [dispatch]
   );
@@ -68,19 +39,44 @@ const Orders = () => {
   const columns = [
     {
       title: 'Trạng thái',
-      dataIndex: 'status',
+      dataIndex: 'id',
       key: 'status',
       align: 'center',
-      render: (status) => {
-        if (status == 0) {
-          return <span style={{ color: '#FF0000' }}>Chờ xác nhận</span>;
-        } else if (status == 1) {
-          return <span style={{ color: '#2db7f5' }}>Đã xác nhận</span>;
-        } else if (status == 2) {
-          return <span style={{ color: '#0000FF' }}>Đang giao hàng</span>;
-        } else if (status == 3) {
-          return <span style={{ color: '#87d068' }}>Hoàn tất</span>;
-        }
+      render: (id) => {
+        const status = orders[orders.findIndex((o) => o.id === id)].status;
+        const options = [
+          {
+            value: '0',
+            label: 'Chờ xác nhận',
+          },
+          {
+            value: '1',
+            label: 'Đã xác nhận',
+          },
+          {
+            value: '2',
+            label: 'Đang giao hàng',
+          },
+          {
+            value: '3',
+            label: 'Hoàn tất',
+          },
+        ];
+        return (
+          <Select
+            style={{ width: '100%' }}
+            defaultValue={
+              options[_.findIndex(options, (o) => o.value == status)].label
+            }
+            onChange={(value) => handleStatus(value, id)}
+          >
+            {options.map((option) => (
+              <Option key={option.value} value={option.value}>
+                {option.label}
+              </Option>
+            ))}
+          </Select>
+        );
       },
     },
     {
@@ -122,6 +118,12 @@ const Orders = () => {
       ),
     },
     {
+      title: 'Tài khoản đặt',
+      dataIndex: 'orderAccount',
+      key: 'orderAccount',
+      align: 'center',
+    },
+    {
       title: 'Chi tiết',
       dataIndex: 'items',
       key: 'order detail',
@@ -135,20 +137,11 @@ const Orders = () => {
       dataIndex: 'id',
       key: 'delete',
       align: 'center',
-      render: (id) => {
-        const status = orders[orders.findIndex((o) => o.id === id)].status;
-        return status >= 1 ? (
-          <Tooltip title="Bạn không thể hủy những đơn hàng đã được xác nhận">
-            <Button danger disabled onClick={handleDeleteButton}>
-              Xóa
-            </Button>
-          </Tooltip>
-        ) : (
-          <Button danger onClick={() => handleDeleteButton(id)}>
-            XÓA
-          </Button>
-        );
-      },
+      render: (id) => (
+        <Button danger onClick={() => handleDeleteButton(id)}>
+          XÓA
+        </Button>
+      ),
     },
   ];
 
@@ -182,4 +175,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default AdminOrders;

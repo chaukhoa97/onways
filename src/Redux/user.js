@@ -97,14 +97,6 @@ const userSlice = createSlice({
         state.cart = INITIAL_STATE.cart;
       }
     },
-    updateOrder(state, action) {
-      const orders = state.orders;
-      const orderIndex = orders.findIndex(
-        (order) => order.id === action.payload.id
-      );
-      console.log(current(state.orders[orderIndex]));
-      orders[orderIndex].status = action.payload.status;
-    },
     deleteOrder: (state, action) => {
       const orders = state.orders;
       const orderIndex = orders.findIndex((o) => o.id === action.payload);
