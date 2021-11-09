@@ -26,13 +26,11 @@ const UserSider = () => {
   const history = useHistory();
   const { width, height } = useWindowSize();
   const params = useParams();
-  console.log(params.mode);
   const [selectedKey, setSelectedKey] = useState('profile');
   const handleKeyChange = useCallback(
     (e) => {
       history.push(`/user/${e.key}`);
       setSelectedKey(e.key);
-      console.log(e.key);
     },
     [history]
   );
@@ -51,10 +49,10 @@ const UserSider = () => {
         <span>Thông tin</span>
       </Menu.Item>
       <Menu.Item
-        key="edit"
-        icon={<FontAwesomeIcon icon="fa-solid fa-user-pen" />}
+        key="address"
+        icon={<FontAwesomeIcon icon="fa-solid fa-map-location-dot" />}
       >
-        <span>Chỉnh sửa</span>
+        <span>Địa chỉ</span>
       </Menu.Item>
       <Menu.Item
         key="orders"
