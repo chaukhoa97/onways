@@ -48,7 +48,10 @@ function Profile() {
           <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
           <Descriptions.Item label="Tên">{user.firstName}</Descriptions.Item>
           <Descriptions.Item label="Họ">{user.lastName}</Descriptions.Item>
-          <Descriptions.Item label="Phone">{user.phone}</Descriptions.Item>
+          <Descriptions.Item label="Số điện thoại">
+            {user.phone}
+          </Descriptions.Item>
+          <Descriptions.Item label="Giới tính">{user.gender}</Descriptions.Item>
         </Descriptions>
         <Descriptions title="Thống kê" bordered layout="vertical">
           <Descriptions.Item label="Tổng số đơn hàng">
@@ -81,10 +84,14 @@ function Profile() {
     </div>
   ) : (
     <Edit
+      onCancel={() => {
+        setIsEdit(false);
+      }}
       onConfirm={handleEdit}
       firstName={user.firstName}
       lastName={user.lastName}
       phone={user.phone}
+      gender={user.gender}
     ></Edit>
   );
 }

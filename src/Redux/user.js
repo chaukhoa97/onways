@@ -9,24 +9,19 @@ const INITIAL_STATE = {
   firstName: '',
   lastName: '',
   phone: '',
+  gender: '',
   cart: { items: [] },
   orders: [],
   wishList: [],
   addresses: [],
 };
 
-const addToCartSuccess = () => {
-  message.success('Thêm vào giỏ hàng thành công!');
+const successMessage = (text) => {
+  message.success(text);
 };
 
-const addToCartFailure = () => {
-  message.error('Bạn không thể thêm vào giỏ hàng khi chưa đăng nhập!');
-};
-
-const addToWishListFailure = () => {
-  message.error(
-    'Bạn không thể thêm vào danh sách yêu thích khi chưa đăng nhập!'
-  );
+const failureMessage = (text) => {
+  message.error(text);
 };
 
 const userSlice = createSlice({
@@ -46,7 +41,7 @@ const userSlice = createSlice({
       const cartItems = state.cart.items;
       const isLoggedIn = state.localId !== '';
       if (isLoggedIn) {
-        addToCartSuccess();
+        successMessage('Thêm vào giỏ hàng thành công');
         const productIndex = cartItems.findIndex(
           (p) => p.data.id === action.payload.id
         );
@@ -59,7 +54,7 @@ const userSlice = createSlice({
           cartItems[productIndex].data.count += 1;
         }
       } else {
-        addToCartFailure();
+        failureMessage('Bạn không thể thêm vào giỏ hàng khi chưa đăng nhập!');
       }
     },
     changeCartCount: (state, action) => {
@@ -86,7 +81,9 @@ const userSlice = createSlice({
           state.wishList = [...wishList, action.payload];
         }
       } else {
-        addToWishListFailure();
+        failureMessage(
+          'Bạn không thể thêm vào danh sách yêu thích khi chưa đăng nhập!'
+        );
       }
     },
     addToOrder: (state, action) => {
@@ -121,6 +118,8 @@ const userSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.phone = action.payload.phone;
+      state.gender = action.payload.gender;
+      successMessage('Cập nhật thông tin thành công');
     },
   },
 });

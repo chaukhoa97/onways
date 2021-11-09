@@ -1,25 +1,7 @@
-import AddressCard from '../../Components/AddressCard';
-import {
-  Route,
-  Switch,
-  Redirect,
-  NavLink,
-  Link,
-  useHistory,
-} from 'react-router-dom';
-import {
-  Row,
-  Col,
-  Layout,
-  Space,
-  Divider,
-  Input,
-  Button,
-  Empty,
-  PageHeader,
-} from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Divider } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import AddressCard from '../../Components/AddressCard';
 import { userActions } from '../../Redux/user';
 
 const Address = () => {

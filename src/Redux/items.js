@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = { databaseItems: [], showedItems: [] };
 
@@ -11,6 +11,7 @@ const itemsSlice = createSlice({
       state.showedItems = action.payload;
     },
     filter(state, action) {
+      state.showedItems = [...state.databaseItems];
       if (action.payload.category.length > 0) {
         state.showedItems = state.databaseItems.filter((item) => {
           return action.payload.category.includes(item.category);
@@ -68,13 +69,17 @@ const itemsSlice = createSlice({
       });
     },
     update(state, action) {
-      state.databaseItems = state.databaseItems.map((item) => {
-        if (item.id === action.payload.id) {
-          return action.payload;
-        } else {
-          return item;
-        }
-      });
+      const updateItemIndex = state.databaseItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      const updateItem = state.databaseItems[updateItemIndex];
+      state.databaseItems[updateItemIndex] = {
+        ...updateItem,
+        ...action.payload,
+      };
+    },
+    add(state, action) {
+      state.databaseItems.push(action.payload);
     },
   },
 });

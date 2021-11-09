@@ -13,6 +13,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { userActions } from '../../Redux/user';
+import Select from 'react-select';
 
 const Edit = (props) => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Edit = (props) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(userActions.updateProfile(data));
+    dispatch(userActions.updateProfile({ ...data, gender: data.gender.value }));
     props.onConfirm();
   };
 
@@ -71,33 +72,66 @@ const Edit = (props) => {
               <p className="error mb-0 ms-3">Bạn chưa nhập họ</p>
             )}
           </Col>
-        </Row>
-        <div className=" d-flex flex-column flex-md-row align-items-center p-3">
-          <p className="fs-2 mb-0 me-3 bold">
-            <nobr>Số điện thoại:</nobr>
-          </p>
-          <Controller
-            name="phone"
-            rules={{ required: true, pattern: /^[0-9]{10,11}$/ }}
-            control={control}
-            defaultValue={props.phone}
-            render={({ field }) => (
-              <Input
-                {...field}
-                type="tel"
-                placeholder="Nhập số điện thoại"
-                size="large"
+          <Col span={24} md={12}>
+            <div className=" d-flex flex-column flex-md-row align-items-center p-3">
+              <p className="fs-2 mb-0 me-3 bold">
+                <nobr>Số điện thoại:</nobr>
+              </p>
+              <Controller
+                name="phone"
+                rules={{ required: true, pattern: /^[0-9]{10,11}$/ }}
+                control={control}
+                defaultValue={props.phone}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="tel"
+                    placeholder="Nhập số điện thoại"
+                    size="large"
+                  />
+                )}
               />
+            </div>
+            {errors.phone && (
+              <p className="error mb-0 ms-3">Số điện thoại không hợp lệ</p>
             )}
-          />
-        </div>
-        {errors.phone && (
-          <p className="error mb-0 ms-3">Số điện thoại không hợp lệ</p>
-        )}
-        <div className="d-flex justify-content-center">
-          <Button type="primary" htmlType="submit" size="large">
-            Xác nhận
-          </Button>
+          </Col>
+          <Col span={24} md={12}>
+            <div className=" d-flex flex-column flex-md-row align-items-center p-3">
+              <p className="fs-2 mb-0 me-3 bold">
+                <nobr>Giới tính:</nobr>
+              </p>
+              <Controller
+                name="gender"
+                rules={{ required: true }}
+                control={control}
+                defaultValue={{ value: props.gender, label: props.gender }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={[
+                      { value: 'Nam', label: 'Nam' },
+                      { value: 'Nữ', label: 'Nữ' },
+                      { value: 'Khác', label: 'Khác' },
+                    ]}
+                  />
+                )}
+              />
+            </div>
+            {errors.gender && (
+              <p className="error mb-0 ms-3">Hãy chọn giới tính của bạn</p>
+            )}
+          </Col>
+        </Row>
+        <div className="d-flex justify-content-center mt-4">
+          <Space>
+            <Button size="large" onClick={props.onCancel}>
+              Hủy
+            </Button>
+            <Button type="primary" htmlType="submit" size="large">
+              Xác nhận
+            </Button>
+          </Space>
         </div>
       </form>
     </div>

@@ -84,7 +84,6 @@ const Wish = () => {
       ) : (
         <Empty description="Bạn chưa có sản phẩm yêu thích nào" />
       )}
-      ;
     </div>
   );
 };

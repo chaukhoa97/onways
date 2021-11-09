@@ -200,7 +200,7 @@ const ProductsPage = () => {
           <Row gutter={[24, 24]}>
             {showedItems.length === 0 ? (
               <div className="d-block mx-auto">
-                <Spin size="large" />
+                <Empty description="Không tìm thấy sản phẩm" />
               </div>
             ) : (
               currentPageItems.map((i) => (
