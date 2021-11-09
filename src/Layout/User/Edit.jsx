@@ -94,9 +94,11 @@ const Edit = (props) => {
         {errors.phone && (
           <p className="error mb-0 ms-3">Số điện thoại không hợp lệ</p>
         )}
-        <Button type="primary" htmlType="submit" size="large">
-          Xác nhận
-        </Button>
+        <div className="d-flex justify-content-center">
+          <Button type="primary" htmlType="submit" size="large">
+            Xác nhận
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -62,6 +62,20 @@ const itemsSlice = createSlice({
           break;
       }
     },
+    delete(state, action) {
+      state.databaseItems = state.databaseItems.filter((item) => {
+        return item.id !== action.payload;
+      });
+    },
+    update(state, action) {
+      state.databaseItems = state.databaseItems.map((item) => {
+        if (item.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return item;
+        }
+      });
+    },
   },
 });
 

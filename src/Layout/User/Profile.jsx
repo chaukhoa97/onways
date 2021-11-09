@@ -44,25 +44,7 @@ function Profile() {
   ) : !isEdit ? (
     <div className="bg-white p-4 m-4 shadow">
       <Space direction="vertical" size="large">
-        <Descriptions
-          title="Thông tin người dùng"
-          extra={
-            <Button
-              size="large"
-              type="primary"
-              onClick={() => handleEdit()}
-              icon={
-                <FontAwesomeIcon
-                  icon="fa-solid fa-user-pen"
-                  size="md"
-                  className="me-2"
-                />
-              }
-            >
-              Cập nhật thông tin
-            </Button>
-          }
-        >
+        <Descriptions title="Thông tin người dùng">
           <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
           <Descriptions.Item label="Tên">{user.firstName}</Descriptions.Item>
           <Descriptions.Item label="Họ">{user.lastName}</Descriptions.Item>
@@ -79,6 +61,22 @@ function Profile() {
             {totalItems}
           </Descriptions.Item>
         </Descriptions>
+        <div className="d-flex justify-content-center">
+          <Button
+            size="large"
+            type="primary"
+            onClick={() => handleEdit()}
+            icon={
+              <FontAwesomeIcon
+                icon="fa-solid fa-user-pen"
+                size="md"
+                className="me-2"
+              />
+            }
+          >
+            Cập nhật thông tin
+          </Button>
+        </div>
       </Space>
     </div>
   ) : (

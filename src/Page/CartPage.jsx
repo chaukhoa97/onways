@@ -128,6 +128,7 @@ export const CartTable = (props) => {
         dataSource={cartItems}
         pagination={false}
         bordered
+        scroll={{ x: 320 }}
       />
       {cartItems.length > 0 && (
         <div className="cart-footer">

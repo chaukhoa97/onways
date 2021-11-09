@@ -1,4 +1,4 @@
-import { Button, Modal, Table, Tooltip } from 'antd';
+import { Button, Divider, Modal, Table, Tooltip } from 'antd';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,14 @@ export const handleItemsDetail = (items) => {
   Modal.info({
     title: 'Chi tiết đơn hàng',
     width: '80%',
-    content: <Table dataSource={items} columns={columns} pagination={false} />,
+    content: (
+      <Table
+        dataSource={items}
+        columns={columns}
+        pagination={false}
+        scroll={{ x: 300 }}
+      />
+    ),
   });
 };
 
@@ -154,12 +161,17 @@ const Orders = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-md-4">
+      <h1 className="bold" style={{ color: '#3d56b2' }}>
+        Đơn hàng của tôi
+      </h1>
+      <Divider />
       <Table
         columns={columns}
         dataSource={orders}
         pagination={false}
         bordered
+        scroll={{ x: 700 }}
       />
       <Modal
         visible={showDelete}

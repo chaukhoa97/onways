@@ -39,7 +39,7 @@ const Address = () => {
 
   return (
     <div className="m-4 p-4">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex flex-column flex-md-row justify-content-between">
         <h1 className="bold" style={{ color: '#3d56b2' }}>
           Địa chỉ của tôi
         </h1>

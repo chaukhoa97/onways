@@ -1,25 +1,7 @@
-import {
-  Layout,
-  Divider,
-  Row,
-  Col,
-  Input,
-  Button,
-  Space,
-  message,
-  Menu,
-} from 'antd';
-import { useState, useEffect, useCallback, useRef, useContext } from 'react';
-import {
-  Route,
-  Switch,
-  Redirect,
-  NavLink,
-  Link,
-  useHistory,
-  useParams,
-} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Menu } from 'antd';
+import { useCallback, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useWindowSize } from 'react-use';
 
 const AdminSider = () => {

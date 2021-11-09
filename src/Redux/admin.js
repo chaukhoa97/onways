@@ -34,6 +34,11 @@ const adminSlice = createSlice({
       const orderIndex = orders.findIndex((o) => o.id === action.payload);
       orders.splice(orderIndex, 1);
     },
+    deleteUser: (state, action) => {
+      const users = state.users;
+      const userIndex = users.findIndex((u) => u.id === action.payload);
+      users.splice(userIndex, 1);
+    },
   },
 });
 

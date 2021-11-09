@@ -1,17 +1,14 @@
-import { Button, Modal, Table, Tooltip, Select } from 'antd';
+import { Button, Divider, Modal, Table } from 'antd';
+import _ from 'lodash';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../Redux/user';
+import Select from 'react-select';
 import { adminActions } from '../../Redux/admin';
 import { handleItemsDetail } from '../User/Orders';
-import { useState, useEffect, useCallback, useRef, useContext } from 'react';
-import _ from 'lodash';
 
 const AdminOrders = () => {
-  const { Option } = Select;
-  const [selectedValue, setSelectedValue] = useState('');
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.admin.orders);
-  console.log(orders);
   const [showDelete, setShowDelete] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
 
@@ -26,7 +23,6 @@ const AdminOrders = () => {
 
   const handleConfirmDelete = useCallback(
     (id) => {
-      dispatch(userActions.deleteOrder(id));
       dispatch(adminActions.deleteOrder(id));
       setShowDelete(false);
     },
@@ -34,10 +30,9 @@ const AdminOrders = () => {
   );
 
   const handleStatus = useCallback(
-    (value, id) => {
-      setSelectedValue(value);
-      dispatch(userActions.updateOrder({ status: value, id }));
-      dispatch(adminActions.updateOrder({ status: value, id }));
+    (status, id) => {
+      console.log(status, id);
+      dispatch(adminActions.updateOrder({ status, id }));
     },
     [dispatch]
   );
@@ -48,40 +43,36 @@ const AdminOrders = () => {
       dataIndex: 'id',
       key: 'status',
       align: 'center',
+      width: 200,
       render: (id) => {
         const status = orders[orders.findIndex((o) => o.id === id)].status;
         let label;
         if (status == 0) {
           label = 'Chờ xác nhận';
-        }
-        if (status == 1) {
+        } else if (status == 1) {
           label = 'Đã xác nhận';
-        }
-        if (status == 2) {
+        } else if (status == 2) {
           label = 'Đang giao hàng';
-        }
-        if (status == 3) {
+        } else if (status == 3) {
           label = 'Hoàn tất';
         }
+        const defaultSelect = {
+          value: status,
+          label,
+        };
+        const options = [
+          { value: 0, label: 'Chờ xác nhận' },
+          { value: 1, label: 'Đã xác nhận' },
+          { value: 2, label: 'Đang giao hàng' },
+          { value: 3, label: 'Hoàn tất' },
+        ];
         return (
           <Select
-            style={{ width: '100%' }}
-            defaultValue={label}
-            onChange={(value) => handleStatus(value, id)}
-          >
-            <Option key="0" value="0">
-              Chờ xác nhận
-            </Option>
-            <Option key="1" value="1">
-              Đã xác nhận
-            </Option>
-            <Option key="2" value="2">
-              Đang giao hàng
-            </Option>
-            <Option key="3" value="3">
-              Hoàn tất
-            </Option>
-          </Select>
+            styles={{ width: '120px' }}
+            options={options}
+            defaultValue={defaultSelect}
+            onChange={(newValue) => handleStatus(newValue.value, id)}
+          ></Select>
         );
       },
     },
@@ -93,6 +84,12 @@ const AdminOrders = () => {
       render: (time) => {
         return new Date(time).toLocaleString();
       },
+    },
+    {
+      title: 'Tài khoản đặt',
+      dataIndex: 'orderAccount',
+      key: 'orderAccount',
+      align: 'center',
     },
     {
       title: 'Người nhận',
@@ -124,10 +121,21 @@ const AdminOrders = () => {
       ),
     },
     {
-      title: 'Tài khoản đặt',
-      dataIndex: 'orderAccount',
-      key: 'orderAccount',
+      title: 'Cách thanh toán',
+      dataIndex: 'payment',
+      key: 'payment',
       align: 'center',
+      render: (payment) => {
+        if (payment === 'cash') {
+          return 'Tiền mặt';
+        }
+        if (payment === 'card') {
+          return 'Thẻ tín dụng';
+        }
+        if (payment === 'momo') {
+          return 'Momo';
+        }
+      },
     },
     {
       title: 'Chi tiết',
@@ -152,12 +160,17 @@ const AdminOrders = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-md-4">
+      <h1 className="bold" style={{ color: '#3d56b2' }}>
+        Quản lý đơn hàng
+      </h1>
+      <Divider />
       <Table
         columns={columns}
         dataSource={orders}
-        pagination={false}
         bordered
+        scroll={{ x: 1000 }}
+        pagination={{ pageSize: 4 }}
       />
       <Modal
         visible={showDelete}
