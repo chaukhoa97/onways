@@ -1,10 +1,10 @@
 import { Col, Layout, Row } from 'antd';
 import MainLayout from '../Layout/MainLayout';
-import Edit from '../Layout/User/Edit';
 import Orders from '../Layout/User/Orders';
 import Profile from '../Layout/User/Profile';
 import UserSider from '../Layout/User/UserSider';
 import Wish from '../Layout/User/Wish';
+import Address from '../Layout/User/Address';
 import {
   Route,
   Switch,
@@ -16,20 +16,19 @@ import {
 
 const UserPage = () => {
   const params = useParams();
-  console.log(params);
   return (
     <MainLayout>
       <Layout.Content>
         <Row>
-          <Col xs={23} lg={5}>
+          <Col xs={24} lg={5}>
             <div className="bg-white p-4 m-4">
               <UserSider></UserSider>
             </div>
           </Col>
-          <Col xs={23} lg={17}>
-            <div className="bg-white p-4 m-4">
+          <Col xs={24} lg={19}>
+            <div>
               {params.mode === 'profile' && <Profile></Profile>}
-              {params.mode === 'edit' && <Edit></Edit>}
+              {params.mode === 'address' && <Address></Address>}
               {params.mode === 'orders' && <Orders></Orders>}
               {params.mode === 'wish' && <Wish></Wish>}
             </div>
