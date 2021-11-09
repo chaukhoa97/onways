@@ -4,11 +4,18 @@ import {
   faCartPlus,
   faCartShopping,
   faHeart,
-  faStar,
-  faTrash,
-  faUser,
+  faHeartCrack,
   faLock,
+  faMapLocationDot,
+  faTrash,
+  faTruck,
+  faUser,
+  faUserLarge,
   faUserPen,
+  faShirt,
+  faUsers,
+  faPlus,
+  faPen,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React from 'react';
@@ -21,14 +28,21 @@ import store from './Redux/store';
 import reportWebVitals from './reportWebVitals';
 library.add(
   far,
-  faStar,
   faTrash,
   faCartShopping,
   faCartPlus,
   faHeart,
   faUser,
   faLock,
-  faUserPen
+  faUserPen,
+  faHeartCrack,
+  faTruck,
+  faUsers,
+  faShirt,
+  faUserLarge,
+  faMapLocationDot,
+  faPlus,
+  faPen
 );
 axios.defaults.baseURL = 'https://react-e8310-default-rtdb.firebaseio.com/';
 

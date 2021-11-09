@@ -1,5 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Layout, Divider, Row, Col, Input, Button, Space, message } from 'antd';
+import {
+  Layout,
+  Divider,
+  Row,
+  Col,
+  Input,
+  Button,
+  Space,
+  message,
+  Modal,
+} from 'antd';
 import { useForm, Controller, useController } from 'react-hook-form';
 import axios from 'axios';
 import { Route, Switch, Link } from 'react-router-dom';
@@ -7,9 +17,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MainLayout from '../Layout/MainLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '../Redux/auth';
+import { syncAdmin } from '../Redux/admin';
 
 const LoginPage = (props) => {
   const [signUpMode, setSignUpMode] = useState(false);
+  const [termVisible, setTermVisible] = useState(true);
   const handleModeChange = () => {
     setSignUpMode(!signUpMode);
   };
@@ -17,7 +29,7 @@ const LoginPage = (props) => {
   return (
     <MainLayout>
       <Layout.Content className="d-flex justify-content-center align-items-center">
-        <div className="mx-auto my-5 account__form rounded-3">
+        <div className="mx-auto my-5 account__form rounded-3 shadow-lg border-5">
           <div className="d-flex justify-content-center mb-3">
             <h2
               className={!signUpMode ? 'active' : undefined}
@@ -73,8 +85,8 @@ function SignInForm() {
             email: res.data.email,
           })
         );
+        dispatch(syncAdmin());
       })
-
       .catch((err) => {
         signInError();
       });
@@ -97,9 +109,7 @@ function SignInForm() {
             />
           )}
         />
-        {errors.email && (
-          <span className="account__error">Hãy nhập email của bạn!</span>
-        )}
+        {errors.email && <span className="error">Hãy nhập email của bạn!</span>}
         <Controller
           name="password"
           control={control}
@@ -117,7 +127,7 @@ function SignInForm() {
           )}
         />
         {errors.password && (
-          <span className="account__error">Hãy nhập password của bạn!</span>
+          <span className="error">Hãy nhập password của bạn!</span>
         )}
 
         <Button
@@ -173,11 +183,27 @@ function SignUpForm() {
                 email: res.data.email,
               })
             );
+            dispatch(syncAdmin());
           });
       })
       .catch((err) => {
         signUpError();
       });
+  };
+
+  const handleTerms = () => {
+    Modal.info({
+      title: '#saveOle',
+      content: (
+        <div>
+          <p>
+            Bạn phải tuyệt đối tin tưởng vào quá trình của Ole. Đội bóng đang đi
+            đúng hướng.
+          </p>
+        </div>
+      ),
+      onOk() {},
+    });
   };
 
   return (
@@ -202,7 +228,7 @@ function SignUpForm() {
           )}
         />
         {errors.email && (
-          <span className="account__error">Email không đúng định dạng!</span>
+          <span className="error">Email không đúng định dạng</span>
         )}
         <Controller
           name="password"
@@ -221,7 +247,7 @@ function SignUpForm() {
           )}
         />
         {errors.password && (
-          <span className="account__error">
+          <span className="error">
             Mật khẩu phải có độ dài từ 6 tới 20 ký tự
           </span>
         )}
@@ -245,7 +271,7 @@ function SignUpForm() {
           )}
         />
         {errors.confirmPassword && (
-          <span className="account__error">
+          <span className="error">
             Mật khẩu xác nhận không trùng với mật khẩu ở trên
           </span>
         )}
@@ -258,11 +284,18 @@ function SignUpForm() {
           />
           <label htmlFor="acceptTerms">
             Bấm đăng ký đồng nghĩa với việc tôi đồng ý với các
-            <Link to="/home"> điều khoản </Link> của Onways
+            <span
+              onClick={handleTerms}
+              style={{ color: '#007bff', cursor: 'pointer' }}
+            >
+              {' '}
+              điều khoản{' '}
+            </span>{' '}
+            của Onways
           </label>
         </div>
         {errors.acceptTerms && (
-          <span className="account__error">
+          <span className="error">
             Bạn không thể đăng ký khi chưa đồng ý với những điều khoản của chúng
             tôi!
           </span>

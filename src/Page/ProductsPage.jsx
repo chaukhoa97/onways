@@ -9,14 +9,15 @@ import {
   Select,
   Divider,
   Empty,
+  Spin,
 } from 'antd';
 import ProductItem from '../Components/ProductItem';
 import { useWindowSize } from 'react-use';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { useRef } from 'react';
 import { itemsActions } from '../Redux/items';
 import { Link } from 'react-router-dom';
+import { userActions } from '../Redux/user';
 
 const { Option } = Select;
 const { Sider, Content } = Layout;
@@ -77,23 +78,23 @@ const ProductsPage = () => {
   const { width, height } = useWindowSize();
   return (
     <MainLayout>
-      <Layout style={{ background: '#afb9c8' }}>
+      <Layout style={{ background: '#f6f9fc' }}>
         <Sider
-          className="sider"
+          className="sider m-4"
           width={width > 425 ? `20%` : `${(width * 3) / 5}px`}
           breakpoint="xs"
           collapsedWidth="0"
           style={{
             zIndex: 2,
             position: width <= 425 && 'fixed',
-            background: '#afb9c8',
+            background: '#f6f9fc',
           }}
         >
           <div
             style={{ background: 'white' }}
-            className="p-4 sider__content  mx-auto"
+            className="p-4 sider__content mx-auto rounded-3 shadow"
           >
-            <h2 className="fs-2 sider__filter-type">Danh mục</h2>
+            <h2 className="fs-2 sider__filter-type my-0">Danh mục</h2>
             {tags.map((tag) => (
               <CheckableTag
                 key={tag}
@@ -104,7 +105,7 @@ const ProductsPage = () => {
               </CheckableTag>
             ))}
             <Divider />
-            <h2 className="fs-2 sider__filter-type">Đánh giá</h2>
+            <h2 className="fs-2 sider__filter-type my-0">Đánh giá</h2>
             <div className="sider__rates">
               <div
                 className={`sider__rate ${rate == 4 && 'sider__rate--active'}`}
@@ -140,7 +141,7 @@ const ProductsPage = () => {
               </div>
             </div>
             <Divider />
-            <h2 className="fs-2 sider__filter-type">Giá thành</h2>
+            <h2 className="fs-2 sider__filter-type my-0">Giá thành</h2>
             <p
               className={`sider__price ${
                 priceRange == 0 && 'sider__price--active'
@@ -199,19 +200,18 @@ const ProductsPage = () => {
           <Row gutter={[24, 24]}>
             {showedItems.length === 0 ? (
               <div className="d-block mx-auto">
-                <Empty />
+                <Spin size="large" />
               </div>
             ) : (
               currentPageItems.map((i) => (
                 <Col span={24} md={12} xl={8} key={i.id}>
-                  <Link to={`/products/${i.id}`}>
-                    <ProductItem
-                      title={i.title}
-                      price={i.price}
-                      image={i.image}
-                      rating={i.rating}
-                    ></ProductItem>
-                  </Link>
+                  <ProductItem
+                    id={i.id}
+                    title={i.title}
+                    price={i.price}
+                    image={i.image}
+                    rating={i.rating}
+                  ></ProductItem>
                 </Col>
               ))
             )}
