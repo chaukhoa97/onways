@@ -1,12 +1,15 @@
 @import './Base/sanitize';
 @import '/node_modules/antd/dist/antd.css';
 @import './Base/utilities';
+@import '/node_modules/slick-carousel/slick/slick.css';
+@import '/node_modules/slick-carousel/slick/slick-theme.css';
 @import './Base/variables';
 @import './Base/global';
 
 @import './Layout/header';
 
 @import './Components/address-card';
+@import './Components/carousel';
 
 @import './Pages/product';
 @import './Pages/login';

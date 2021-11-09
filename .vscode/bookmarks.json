@@ -4,8 +4,18 @@
 			"path": "src/Components/ProductForm.jsx",
 			"bookmarks": [
 				{
-					"line": 118,
+					"line": 107,
 					"column": 43,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "src/scss/Components/_carousel.scss",
+			"bookmarks": [
+				{
+					"line": 0,
+					"column": 0,
 					"label": ""
 				}
 			]

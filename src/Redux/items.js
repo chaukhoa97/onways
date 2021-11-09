@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = { databaseItems: [], showedItems: [] };
 
@@ -80,6 +80,9 @@ const itemsSlice = createSlice({
     },
     add(state, action) {
       state.databaseItems.push(action.payload);
+    },
+    recent(state, action) {
+      state.showedItems = action.payload;
     },
   },
 });

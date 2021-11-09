@@ -1,28 +1,31 @@
-import MainLayout from '../Layout/MainLayout';
-import { useParams } from 'react-router';
-import { Layout, Row, Col, Image, Rate, Button } from 'antd';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Col, Divider, Image, Layout, Rate, Row } from 'antd';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { useLocalStorage } from 'react-use';
+import Carousel from '../Components/Carousel';
 import { roundHalf } from '../Components/ProductItem';
-import { useDispatch } from 'react-redux';
+import MainLayout from '../Layout/MainLayout';
 import { userActions } from '../Redux/user';
-import { useSelector } from 'react-redux';
 
 const { Content } = Layout;
 const ProductDetailPage = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
-  const id = Number(params.productId);
+  const itemId = Number(params.productId);
   const [itemData, setItemData] = useState(null);
-  const [loading, setLoading] = useState(false);
   const wishList = useSelector((state) => state.user.wishList);
   const databaseItems = useSelector((state) => state.items.databaseItems);
-  console.log(databaseItems, id);
+  const sameCategoryItemIds = databaseItems
+    .filter(
+      (item) => item?.category === itemData?.category && item?.id !== itemId
+    )
+    .map((item) => item.id);
 
   useEffect(() => {
-    setItemData(databaseItems.find((item) => item.id === id));
-  }, [id, databaseItems]);
+    setItemData(databaseItems.find((item) => item.id === itemId));
+  }, [itemId, databaseItems]);
 
   const handleAddToCart = () => {
     dispatch(userActions.addToCart(itemData));
@@ -31,6 +34,19 @@ const ProductDetailPage = (props) => {
   const handleAddToWishlist = () => {
     dispatch(userActions.addToWishlist(itemData.id));
   };
+
+  const [recentIds, setRecentIds, remove] = useLocalStorage(
+    'recent',
+    [1, 5, 9]
+  );
+
+  useEffect(() => {
+    if (itemId !== recentIds[0]) {
+      setRecentIds([...new Set([itemId, ...recentIds])].slice(0, 7));
+    }
+  }, [itemId, recentIds, setRecentIds]);
+
+  const carouselRecentIds = recentIds.filter((id) => id !== itemId);
 
   return (
     <MainLayout>
@@ -81,7 +97,7 @@ const ProductDetailPage = (props) => {
                   icon={
                     <FontAwesomeIcon
                       icon={`fa-${
-                        wishList.includes(Number(id)) ? 'solid' : 'regular'
+                        wishList.includes(Number(itemId)) ? 'solid' : 'regular'
                       } fa-heart`}
                       size="xl"
                       className="me-3"
@@ -95,6 +111,11 @@ const ProductDetailPage = (props) => {
             </div>
           </Col>
         </Row>
+        <Divider />
+        <h1 className="mt-5 mb-4 bold">Sản phẩm cùng loại</h1>
+        <Carousel itemIds={sameCategoryItemIds} />
+        <h1 className="mt-6 mb-4 bold">Sản phẩm vừa xem</h1>
+        <Carousel itemIds={carouselRecentIds} key={carouselRecentIds[0]} />
       </Content>
     </MainLayout>
   );

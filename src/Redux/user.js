@@ -1,6 +1,6 @@
-import { createSlice, current } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import { message } from 'antd';
+import axios from 'axios';
 
 const INITIAL_STATE = {
   databaseId: '',
