@@ -1,4 +1,4 @@
-import { Button, Divider, Modal, Table, Typography } from 'antd';
+import { Button, Divider, Modal, Table } from 'antd';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -130,7 +130,7 @@ const AdminUsers = () => {
           </Button>,
         ]}
       >
-        <p>Bạn có chắc muốn xóa đơn hàng chứ?</p>
+        <p>Bạn có chắc muốn xóa khách hàng này chứ?</p>
       </Modal>
     </div>
   );

@@ -57,3 +57,11 @@ h5,
 .mt-6 {
   margin-top: 6rem;
 }
+
+html,
+body {
+  min-height: 100%;
+}
+body {
+  height: 100vh;
+}

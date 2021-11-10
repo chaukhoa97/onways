@@ -1,20 +1,10 @@
-import {
-  Layout,
-  Table,
-  InputNumber,
-  Button,
-  Space,
-  Steps,
-  Divider,
-} from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, InputNumber, Layout, Space, Steps, Table } from 'antd';
+import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import MainLayout from '../Layout/MainLayout';
 import { userActions } from '../Redux/user';
-const { Header, Footer, Sider, Content } = Layout;
-import _ from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Route, Switch, Redirect, NavLink, Link } from 'react-router-dom';
-import { PROPERTY_TYPES } from '@babel/types';
 
 const CartPage = () => {
   const { Step } = Steps;

@@ -5,6 +5,7 @@
 @import '/node_modules/slick-carousel/slick/slick-theme.css';
 @import './Base/variables';
 @import './Base/global';
+@import './Base/button';
 
 @import './Layout/header';
 
@@ -15,3 +16,4 @@
 @import './Pages/login';
 @import './Pages/profile';
 @import './Pages/cart';
+@import './Pages/home';

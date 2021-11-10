@@ -123,7 +123,7 @@ const AdminProducts = () => {
         columns={columns}
         dataSource={databaseItems}
         scroll={{ x: 400 }}
-        pagination={{ pageSize: 6 }}
+        pagination={{ pageSize: 5 }}
       />
       <Modal
         visible={showDelete}
@@ -153,10 +153,7 @@ const AdminProducts = () => {
           price={currentUpdateItem?.price}
           description={currentUpdateItem?.description}
           image={currentUpdateItem?.image}
-          category={{
-            value: currentUpdateItem?.category,
-            label: currentUpdateItem?.category,
-          }}
+          category={currentUpdateItem?.category}
         />
       </Modal>
     </div>

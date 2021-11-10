@@ -150,9 +150,7 @@ const MainLayout = (props) => {
         </Menu>
       </Header>
       {props.children}
-      <Footer style={{ textAlign: 'center' }} className="mt-5">
-        Onways ©2021
-      </Footer>
+      <Footer style={{ textAlign: 'center' }}>Onways ©2021</Footer>
     </Layout>
   );
 };

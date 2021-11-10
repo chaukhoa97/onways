@@ -1,6 +1,5 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import user, { userActions } from './user';
 
 const INITIAL_STATE = { orders: [], users: [] };
 

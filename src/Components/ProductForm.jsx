@@ -1,21 +1,26 @@
-import { Button, Col, Divider, Input, message, Row, Space } from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  message,
+  Row,
+  Space,
+  Select,
+  InputNumber,
+} from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
 import { itemsActions } from '../Redux/items';
 
-const sucessMessage = (message) => {
-  message.success(message);
-};
-
 const ProductForm = (props) => {
+  const { Option } = Select;
   const databaseItemsCount = useSelector(
     (state) => state.items.databaseItems.length
   );
   const updateMode = props.update || false;
   const {
     handleSubmit,
-    watch,
     formState: { errors },
     control,
   } = useForm();
@@ -25,7 +30,7 @@ const ProductForm = (props) => {
       itemsActions.add({
         ...data,
         id: databaseItemsCount + 1,
-        category: data.category.value,
+        category: data.category,
         rating: {
           rate: 0,
           count: 0,
@@ -40,7 +45,7 @@ const ProductForm = (props) => {
       itemsActions.update({
         ...data,
         id: props.id,
-        category: data.category.value,
+        category: data.category,
       })
     );
     props.onCancelForm();
@@ -83,12 +88,14 @@ const ProductForm = (props) => {
           <Col span={24} md={12} lg={5}>
             <Controller
               name="price"
-              rules={{ required: true, min: 0 }}
+              rules={{ required: true }}
               control={control}
               defaultValue={props.price}
               render={({ field }) => (
-                <Input
+                <InputNumber
                   {...field}
+                  style={{ width: '100%' }}
+                  min={0}
                   type="number"
                   placeholder="Nhập giá"
                   size="large"
@@ -107,18 +114,18 @@ const ProductForm = (props) => {
               control={control}
               defaultValue={props.category}
               render={({ field }) => {
-                const options = [
-                  { value: 'Quần áo nam', label: 'Quần áo nam' },
-                  { value: 'Quần áo nữ', label: 'Quần áo nữ' },
-                  { value: 'Đồ điện tử', label: 'Đồ điện tử' },
-                  { value: 'Trang sức', label: 'Trang sức' },
-                ];
                 return (
                   <Select
                     {...field}
-                    options={options}
                     placeholder="Chọn danh mục"
-                  />
+                    size="large"
+                    style={{ width: '100%' }}
+                  >
+                    <Option value="Quần áo nam">Quần áo nam</Option>
+                    <Option value="Quần áo nữ">Quần áo nữ</Option>
+                    <Option value="Đồ điện tử">Đồ điện tử</Option>
+                    <Option value="Trang sức">Trang sức</Option>
+                  </Select>
                 );
               }}
             />

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Empty } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import AddressCard from '../../Components/AddressCard';
 import { userActions } from '../../Redux/user';
@@ -41,17 +41,21 @@ const Address = () => {
         </Button>
       </div>
       <Divider />
-      {addresses.map((a) => (
-        <AddressCard
-          id={a.id}
-          key={a.detail}
-          name={a.name}
-          phone={a.phone}
-          detail={a.detail}
-          edit={a.edit}
-          add={a.add}
-        />
-      ))}
+      {addresses.length > 0 ? (
+        addresses.map((a) => (
+          <AddressCard
+            id={a.id}
+            key={a.detail}
+            name={a.name}
+            phone={a.phone}
+            detail={a.detail}
+            edit={a.edit}
+            add={a.add}
+          />
+        ))
+      ) : (
+        <Empty description="Bạn chưa có địa chỉ nào" />
+      )}
     </div>
   );
 };

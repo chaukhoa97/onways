@@ -52,10 +52,10 @@ const ProductDetailPage = (props) => {
     <MainLayout>
       <Content className="my-sm-5 px-sm-5 my-4">
         <Row gutter={{ xs: 0, md: 16 }}>
-          <Col xs={24} sm={10} className="d-flex justify-content-center">
+          <Col xs={24} sm={6} xl={4} className="d-flex justify-content-center">
             <Image src={itemData?.image} alt={itemData?.title}></Image>
           </Col>
-          <Col xs={24} sm={14}>
+          <Col xs={24} sm={18} xl={20}>
             <div
               className="detail__content p-4"
               style={{ background: 'white' }}
@@ -115,7 +115,7 @@ const ProductDetailPage = (props) => {
         <h1 className="mt-5 mb-4 bold">Sản phẩm cùng loại</h1>
         <Carousel itemIds={sameCategoryItemIds} />
         <h1 className="mt-6 mb-4 bold">Sản phẩm vừa xem</h1>
-        <Carousel itemIds={carouselRecentIds} key={carouselRecentIds[0]} />
+        <Carousel itemIds={carouselRecentIds} />
       </Content>
     </MainLayout>
   );

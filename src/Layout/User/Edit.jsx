@@ -1,32 +1,19 @@
-import axios from 'axios';
-import {
-  Row,
-  Col,
-  Layout,
-  Space,
-  Divider,
-  Input,
-  Button,
-  Empty,
-  message,
-} from 'antd';
-import { useForm, Controller } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Col, Input, Row, Space, Select } from 'antd';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { userActions } from '../../Redux/user';
-import Select from 'react-select';
 
 const Edit = (props) => {
+  const { Option } = Select;
   const dispatch = useDispatch();
   const {
     handleSubmit,
     formState: { errors },
-    watch,
     control,
-    register,
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(userActions.updateProfile({ ...data, gender: data.gender.value }));
+    dispatch(userActions.updateProfile({ ...data }));
     props.onConfirm();
   };
 
@@ -105,16 +92,13 @@ const Edit = (props) => {
                 name="gender"
                 rules={{ required: true }}
                 control={control}
-                defaultValue={{ value: props.gender, label: props.gender }}
+                defaultValue={props.gender}
                 render={({ field }) => (
-                  <Select
-                    {...field}
-                    options={[
-                      { value: 'Nam', label: 'Nam' },
-                      { value: 'Nữ', label: 'Nữ' },
-                      { value: 'Khác', label: 'Khác' },
-                    ]}
-                  />
+                  <Select {...field} style={{ width: 150 }}>
+                    <Option value="male">Nam</Option>
+                    <Option value="female">Nữ</Option>
+                    <Option value="others">Khác</Option>
+                  </Select>
                 )}
               />
             </div>

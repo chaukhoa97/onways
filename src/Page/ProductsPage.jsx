@@ -1,23 +1,20 @@
-import MainLayout from '../Layout/MainLayout';
 import {
-  Layout,
-  Row,
   Col,
-  Tag,
-  Pagination,
-  Rate,
-  Select,
   Divider,
   Empty,
-  Spin,
+  Layout,
+  Pagination,
+  Rate,
+  Row,
+  Select,
+  Tag,
 } from 'antd';
-import ProductItem from '../Components/ProductItem';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useWindowSize } from 'react-use';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import ProductItem from '../Components/ProductItem';
+import MainLayout from '../Layout/MainLayout';
 import { itemsActions } from '../Redux/items';
-import { Link } from 'react-router-dom';
-import { userActions } from '../Redux/user';
 
 const { Option } = Select;
 const { Sider, Content } = Layout;
@@ -75,7 +72,7 @@ const ProductsPage = () => {
     setCurrentPage(1);
   }, [dispatch, priceRange, rate, selectedTags, sort]);
 
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
   return (
     <MainLayout>
       <Layout style={{ background: '#f6f9fc' }}>

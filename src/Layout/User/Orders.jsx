@@ -27,6 +27,7 @@ export const handleItemsDetail = (items) => {
       title: 'Giá',
       dataIndex: ['data', 'price'],
       key: 'price',
+      render: (price) => <p className="price mb-0">{price}</p>,
     },
     {
       title: 'Số lượng',

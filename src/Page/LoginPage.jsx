@@ -1,27 +1,15 @@
-import { useState, useEffect } from 'react';
-import {
-  Layout,
-  Divider,
-  Row,
-  Col,
-  Input,
-  Button,
-  Space,
-  message,
-  Modal,
-} from 'antd';
-import { useForm, Controller, useController } from 'react-hook-form';
-import axios from 'axios';
-import { Route, Switch, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Input, Layout, message, Modal, Space } from 'antd';
+import axios from 'axios';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import MainLayout from '../Layout/MainLayout';
-import { useSelector, useDispatch } from 'react-redux';
-import { authActions } from '../Redux/auth';
 import { syncAdmin } from '../Redux/admin';
+import { authActions } from '../Redux/auth';
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const [signUpMode, setSignUpMode] = useState(false);
-  const [termVisible, setTermVisible] = useState(true);
   const handleModeChange = () => {
     setSignUpMode(!signUpMode);
   };
@@ -58,7 +46,6 @@ function SignInForm() {
   const {
     handleSubmit,
     formState: { errors },
-    watch,
     control,
   } = useForm();
   const signInError = () => {
@@ -87,7 +74,7 @@ function SignInForm() {
         );
         dispatch(syncAdmin());
       })
-      .catch((err) => {
+      .catch(() => {
         signInError();
       });
   };
@@ -186,7 +173,7 @@ function SignUpForm() {
             dispatch(syncAdmin());
           });
       })
-      .catch((err) => {
+      .catch(() => {
         signUpError();
       });
   };

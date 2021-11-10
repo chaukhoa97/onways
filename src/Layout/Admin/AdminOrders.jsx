@@ -1,12 +1,12 @@
-import { Button, Divider, Modal, Table } from 'antd';
+import { Button, Divider, Modal, Table, Select } from 'antd';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
 import { adminActions } from '../../Redux/admin';
 import { handleItemsDetail } from '../User/Orders';
 
 const AdminOrders = () => {
+  const { Option } = Select;
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.admin.orders);
   const [showDelete, setShowDelete] = useState(false);
@@ -56,23 +56,25 @@ const AdminOrders = () => {
         } else if (status == 3) {
           label = 'Hoàn tất';
         }
-        const defaultSelect = {
-          value: status,
-          label,
-        };
-        const options = [
-          { value: 0, label: 'Chờ xác nhận' },
-          { value: 1, label: 'Đã xác nhận' },
-          { value: 2, label: 'Đang giao hàng' },
-          { value: 3, label: 'Hoàn tất' },
-        ];
         return (
           <Select
             styles={{ width: '120px' }}
-            options={options}
-            defaultValue={defaultSelect}
-            onChange={(newValue) => handleStatus(newValue.value, id)}
-          ></Select>
+            defaultValue={label}
+            onChange={(newValue) => handleStatus(newValue, id)}
+          >
+            <Option value="0" key="0">
+              Chưa xác nhận
+            </Option>
+            <Option value="1" key="1">
+              Đã xác nhận
+            </Option>
+            <Option value="2" key="2">
+              Đang giao hàng
+            </Option>
+            <Option value="3" key="3">
+              Hoàn tất
+            </Option>
+          </Select>
         );
       },
     },
