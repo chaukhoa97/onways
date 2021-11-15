@@ -5,14 +5,7 @@ import Profile from '../Layout/User/Profile';
 import UserSider from '../Layout/User/UserSider';
 import Wish from '../Layout/User/Wish';
 import Address from '../Layout/User/Address';
-import {
-  Route,
-  Switch,
-  Redirect,
-  NavLink,
-  Link,
-  useParams,
-} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const UserPage = () => {
   const params = useParams();

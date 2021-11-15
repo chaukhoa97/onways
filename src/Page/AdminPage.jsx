@@ -1,10 +1,10 @@
-import MainLayout from '../Layout/MainLayout';
-import AdminSider from '../Layout/Admin/AdminSider';
-import { Row, Col, Layout, Space, Divider, Input, Button, Empty } from 'antd';
+import { Col, Layout, Row } from 'antd';
 import { useParams } from 'react-router';
 import AdminOrders from '../Layout/Admin/AdminOrders';
-import AdminUsers from '../Layout/Admin/AdminUsers';
 import AdminProducts from '../Layout/Admin/AdminProducts';
+import AdminSider from '../Layout/Admin/AdminSider';
+import AdminUsers from '../Layout/Admin/AdminUsers';
+import MainLayout from '../Layout/MainLayout';
 
 const AdminPage = () => {
   const params = useParams();

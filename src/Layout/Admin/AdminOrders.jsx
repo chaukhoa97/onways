@@ -1,4 +1,4 @@
-import { Button, Modal, Select, Table } from 'antd';
+import { Button, Modal, Table, Select } from 'antd';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

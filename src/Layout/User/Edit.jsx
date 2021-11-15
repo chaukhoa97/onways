@@ -1,20 +1,10 @@
-import axios from 'axios';
-import {
-  Row,
-  Col,
-  Layout,
-  Space,
-  Divider,
-  Input,
-  Button,
-  Empty,
-  message,
-} from 'antd';
-import { useForm, Controller } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Col, Input, Row, Space, Select } from 'antd';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { userActions } from '../../Redux/user';
 
 const Edit = (props) => {
+  const { Option } = Select;
   const dispatch = useDispatch();
   const {
     handleSubmit,
