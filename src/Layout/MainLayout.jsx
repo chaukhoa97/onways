@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { authActions } from '../Redux/auth';
 import { userActions } from '../Redux/user';
+import { adminActions } from '../Redux/admin';
 
 const { Header, Footer } = Layout;
 
@@ -12,7 +13,7 @@ const MainLayout = (props) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.user);
   const isAdmin = user.isAdmin;
-  const cartCount = useSelector((store) => store.user.cart.length);
+  const cartCount = useSelector((store) => store.user.cart.items.length);
   const history = useHistory();
   const dispatch = useDispatch();
   const handleUserClick = () => {
@@ -21,6 +22,8 @@ const MainLayout = (props) => {
   const handleSignout = () => {
     dispatch(authActions.signOut());
     dispatch(userActions.signout());
+    dispatch(adminActions.signOut());
+    history.push('/login');
   };
   return (
     <Layout className="min-vh-100">
@@ -60,7 +63,7 @@ const MainLayout = (props) => {
           </svg>
         </div>
         <Menu mode="horizontal">
-          <Menu.Item>
+          <Menu.Item key="home">
             <NavLink
               activeClassName="nav-link--active"
               className="mont bold"
@@ -69,7 +72,7 @@ const MainLayout = (props) => {
               Trang chủ
             </NavLink>
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key="products">
             <NavLink
               activeClassName="nav-link--active"
               className="mont bold"
@@ -79,7 +82,7 @@ const MainLayout = (props) => {
             </NavLink>
           </Menu.Item>
           {isAdmin && (
-            <Menu.Item>
+            <Menu.Item key="admin">
               <NavLink
                 activeClassName="nav-link--active"
                 className="mont bold"
@@ -91,12 +94,13 @@ const MainLayout = (props) => {
           )}
           {isLoggedIn ? (
             <Menu.SubMenu
+              key="user"
               title={user.firstName + ' ' + user.lastName}
-              icon={<FontAwesomeIcon icon="fa-solid fa-user" />}
+              icon={<FontAwesomeIcon icon="fa-solid fa-user-large" />}
               onTitleClick={handleUserClick}
               style={{ marginLeft: 'auto' }}
             >
-              <Menu.Item>
+              <Menu.Item key="profile">
                 <NavLink
                   activeClassName="nav-link--active"
                   className="mont bold"
@@ -105,7 +109,7 @@ const MainLayout = (props) => {
                   Tài khoản của tôi
                 </NavLink>
               </Menu.Item>
-              <Menu.Item>
+              <Menu.Item key="orders">
                 <NavLink
                   activeClassName="nav-link--active"
                   className="mont bold"
@@ -114,7 +118,7 @@ const MainLayout = (props) => {
                   Đơn mua
                 </NavLink>
               </Menu.Item>
-              <Menu.Item>
+              <Menu.Item key="wish">
                 <NavLink
                   activeClassName="nav-link--active"
                   className="mont bold"
@@ -123,25 +127,26 @@ const MainLayout = (props) => {
                   Yêu thích
                 </NavLink>
               </Menu.Item>
-              <Menu.Item onClick={handleSignout}>
+              <Menu.Item key="signOut" onClick={handleSignout}>
                 <span className="mont bold">Đăng xuất</span>
               </Menu.Item>
             </Menu.SubMenu>
           ) : (
-            <Menu.Item style={{ marginLeft: 'auto' }}>
+            <Menu.Item key="login" style={{ marginLeft: 'auto' }}>
               <NavLink className="mont bold" to="/login">
                 Đăng nhập | Đăng ký
               </NavLink>
             </Menu.Item>
           )}
-          <Menu.Item>
-            <Badge count={cartCount} size="small">
-              <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="lg" />
-              <NavLink
-                className="mont bold"
-                to={`${isLoggedIn ? '/cart' : '/login'}`}
-              ></NavLink>
-            </Badge>
+          <Menu.Item key="cart">
+            <NavLink
+              className="mont bold"
+              to={`${isLoggedIn ? '/cart' : '/login'}`}
+            >
+              <Badge count={cartCount} size="small">
+                <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="md" />
+              </Badge>
+            </NavLink>
           </Menu.Item>
         </Menu>
       </Header>

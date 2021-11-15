@@ -13,6 +13,8 @@ import AdminPage from './Page/AdminPage';
 
 import './scss/App.scss';
 import { syncUser, userActions } from './Redux/user';
+import CheckoutPage from './Page/CheckoutPage';
+import { syncAdmin } from './Redux/admin';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +44,6 @@ function App() {
       <Route path="/products/:productId" exact>
         <ProductDetailPage></ProductDetailPage>
       </Route>
-
       <Route path="/user" exact>
         {isLoggedIn ? (
           <Redirect to="/user/profile" />
@@ -53,14 +54,23 @@ function App() {
       <Route path="/user/:mode">
         {isLoggedIn ? <UserPage></UserPage> : <Redirect to="/login" />}
       </Route>
+      <Route path="/admin" exact>
+        {isAdmin ? <Redirect to="/admin/orders" /> : <Redirect to="/user" />}
+      </Route>
+      <Route path="/admin/:mode">
+        {isAdmin ? <AdminPage></AdminPage> : <Redirect to="/user" />}
+      </Route>
       <Route path="/login" exact>
         {isLoggedIn ? <Redirect to="/user" /> : <LoginPage></LoginPage>}
       </Route>
       <Route path="/cart" exact>
-        <CartPage></CartPage>
+        {isLoggedIn ? <CartPage></CartPage> : <Redirect to="/login" />}
       </Route>
       <Route path="/admin">
         {isAdmin ? <AdminPage></AdminPage> : <Redirect to="/user" />}
+      </Route>
+      <Route path="/checkout">
+        {isLoggedIn ? <CheckoutPage /> : <Redirect to="/login" />}
       </Route>
     </Switch>
   );
