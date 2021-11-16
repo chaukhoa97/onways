@@ -18,17 +18,25 @@ const adminSlice = createSlice({
       state.users = [];
     },
     addToOrder: (state, action) => {
-      state.orders.push(action.payload);
+      const orders = state.orders;
+      state.orders = [...orders, action.payload];
     },
     updateOrder(state, action) {
-      const orderIndex = state.orders.findIndex(
+      const orders = state.orders;
+      const orderIndex = orders.findIndex(
         (order) => order.id === action.payload.id
       );
-      state.orders[orderIndex].status = action.payload.status;
+      orders[orderIndex].status = action.payload.status;
     },
     deleteOrder: (state, action) => {
-      const orderIndex = state.orders.findIndex((o) => o.id === action.payload);
-      state.orders.splice(orderIndex, 1);
+      const orders = state.orders;
+      const orderIndex = orders.findIndex((o) => o.id === action.payload);
+      orders.splice(orderIndex, 1);
+    },
+    deleteUser: (state, action) => {
+      const users = state.users;
+      const userIndex = users.findIndex((u) => u.id === action.payload);
+      users.splice(userIndex, 1);
     },
   },
 });

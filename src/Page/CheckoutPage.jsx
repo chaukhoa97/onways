@@ -132,7 +132,7 @@ const CheckoutPage = () => {
             </div>
             <Divider />
             <div className="checkout__address my-5">
-              <div className="d-flex justify-content-between">
+              <div className="d-flex flex-column flex-md-row justify-content-between">
                 <h2 className="bold">Chọn địa chỉ giao hàng</h2>
                 <Button
                   size="large"

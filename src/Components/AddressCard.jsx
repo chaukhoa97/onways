@@ -7,7 +7,6 @@ import { userActions } from '../Redux/user';
 
 const AddressCard = (props) => {
   const [editMode, setEditMode] = useState(props.edit || false);
-  const [addMode, setAddMode] = useState(props.add || false);
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -21,7 +20,7 @@ const AddressCard = (props) => {
   };
 
   const onCancel = () => {
-    if (addMode) {
+    if (props.add) {
       dispatch(userActions.removeAddress(props.id));
     }
     setEditMode(false);

@@ -15,6 +15,7 @@ const AdminSider = () => {
     [history]
   );
   const menuMode = width > 992 ? 'inline' : 'horizontal';
+  console.log(params);
 
   return (
     <Menu mode={menuMode} selectedKeys={params.mode} onClick={handleKeyChange}>
