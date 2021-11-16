@@ -1,4 +1,4 @@
-import { Button, Modal, Table, Select } from 'antd';
+import { Button, Divider, Modal, Table, Select } from 'antd';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -89,6 +89,12 @@ const AdminOrders = () => {
       },
     },
     {
+      title: 'Tài khoản đặt',
+      dataIndex: 'orderAccount',
+      key: 'orderAccount',
+      align: 'center',
+    },
+    {
       title: 'Người nhận',
       dataIndex: 'address',
       key: 'receiver',
@@ -118,10 +124,21 @@ const AdminOrders = () => {
       ),
     },
     {
-      title: 'Tài khoản đặt',
-      dataIndex: 'orderAccount',
-      key: 'orderAccount',
+      title: 'Cách thanh toán',
+      dataIndex: 'payment',
+      key: 'payment',
       align: 'center',
+      render: (payment) => {
+        if (payment === 'cash') {
+          return 'Tiền mặt';
+        }
+        if (payment === 'card') {
+          return 'Thẻ tín dụng';
+        }
+        if (payment === 'momo') {
+          return 'Momo';
+        }
+      },
     },
     {
       title: 'Chi tiết',
@@ -146,12 +163,17 @@ const AdminOrders = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-md-4">
+      <h1 className="bold" style={{ color: '#3d56b2' }}>
+        Quản lý đơn hàng
+      </h1>
+      <Divider />
       <Table
         columns={columns}
         dataSource={orders}
-        pagination={false}
         bordered
+        scroll={{ x: 1000 }}
+        pagination={{ pageSize: 4 }}
       />
       <Modal
         visible={showDelete}

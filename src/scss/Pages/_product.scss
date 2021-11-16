@@ -6,7 +6,9 @@
 
   &__image {
     height: 200px;
+    width: 90%;
     object-fit: contain;
+    margin: 0 auto;
   }
 
   &__title {
@@ -98,4 +100,12 @@
   .sider__content {
     top: 0;
   }
+}
+
+.ant-card:hover img {
+  transform: scale(1.1);
+}
+
+.ant-card img {
+  transition: all 0.3s ease-in-out;
 }

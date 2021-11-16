@@ -53,3 +53,15 @@ h5,
 .error {
   color: $blood-burst;
 }
+
+.mt-6 {
+  margin-top: 6rem;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+body {
+  height: 100vh;
+}

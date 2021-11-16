@@ -11,6 +11,7 @@ const itemsSlice = createSlice({
       state.showedItems = action.payload;
     },
     filter(state, action) {
+      state.showedItems = [...state.databaseItems];
       if (action.payload.category.length > 0) {
         state.showedItems = state.databaseItems.filter((item) => {
           return action.payload.category.includes(item.category);
@@ -61,6 +62,24 @@ const itemsSlice = createSlice({
           state.showedItems.sort((a, b) => b.price - a.price);
           break;
       }
+    },
+    delete(state, action) {
+      state.databaseItems = state.databaseItems.filter((item) => {
+        return item.id !== action.payload;
+      });
+    },
+    update(state, action) {
+      const updateItemIndex = state.databaseItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      const updateItem = state.databaseItems[updateItemIndex];
+      state.databaseItems[updateItemIndex] = {
+        ...updateItem,
+        ...action.payload,
+      };
+    },
+    add(state, action) {
+      state.databaseItems.push(action.payload);
     },
   },
 });
