@@ -1,16 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, Col, Empty, Rate, Row } from 'antd';
+import { Card, Col, Divider, Empty, Rate, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { roundHalf } from '../../Components/ProductItem';
 import { userActions } from '../../Redux/user';
-import {
-  Route,
-  Switch,
-  Redirect,
-  NavLink,
-  Link,
-  useHistory,
-} from 'react-router-dom';
 
 const Wish = () => {
   const dispatch = useDispatch();

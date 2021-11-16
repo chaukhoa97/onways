@@ -1,20 +1,18 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import AdminPage from './Page/AdminPage';
 import CartPage from './Page/CartPage';
+import CheckoutPage from './Page/CheckoutPage';
 import HomePage from './Page/HomePage';
 import LoginPage from './Page/LoginPage';
 import ProductDetailPage from './Page/ProductDetailPage';
 import ProductsPage from './Page/ProductsPage';
-import { itemsActions } from './Redux/items';
 import UserPage from './Page/UserPage';
-import { useState, useEffect, useCallback, useRef, useContext } from 'react';
-import AdminPage from './Page/AdminPage';
-
+import { itemsActions } from './Redux/items';
+import { syncUser } from './Redux/user';
 import './scss/App.scss';
-import { syncUser, userActions } from './Redux/user';
-import CheckoutPage from './Page/CheckoutPage';
-import { syncAdmin } from './Redux/admin';
 
 function App() {
   const dispatch = useDispatch();

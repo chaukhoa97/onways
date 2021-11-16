@@ -1,11 +1,9 @@
-import { Button, Descriptions, Spin, Space, Divider } from 'antd';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import Edit from './Edit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Descriptions, Space, Spin } from 'antd';
 import _ from 'lodash';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Edit from './Edit';
 
 function Profile() {
   const user = useSelector((state) => state.user);
@@ -37,6 +35,13 @@ function Profile() {
     }, 0),
     2
   );
+
+  const genderLabels = {
+    male: 'Nam',
+    female: 'Nữ',
+    others: 'Khác',
+  };
+
   return user.localId.length === 0 ? (
     <div className="d-flex justify-content-center">
       <Spin size="large" />
@@ -66,7 +71,12 @@ function Profile() {
           <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
           <Descriptions.Item label="Tên">{user.firstName}</Descriptions.Item>
           <Descriptions.Item label="Họ">{user.lastName}</Descriptions.Item>
-          <Descriptions.Item label="Phone">{user.phone}</Descriptions.Item>
+          <Descriptions.Item label="Số điện thoại">
+            {user.phone}
+          </Descriptions.Item>
+          <Descriptions.Item label="Giới tính">
+            {_.get(genderLabels, `${user.gender}`)}
+          </Descriptions.Item>
         </Descriptions>
         <Descriptions title="Thống kê" bordered layout="vertical">
           <Descriptions.Item label="Tổng số đơn hàng">

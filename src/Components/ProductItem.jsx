@@ -1,18 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Rate, Card } from 'antd';
-import { useSelector } from 'react-redux';
-import {
-  Route,
-  Switch,
-  Redirect,
-  NavLink,
-  Link,
-  useHistory,
-} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Card, Rate } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { userActions } from '../Redux/user';
-
-const { Meta } = Card;
 
 export function roundHalf(num) {
   return Math.round(num * 2) / 2;
