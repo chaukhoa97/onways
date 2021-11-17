@@ -1,5 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   faCartPlus,
   faCartShopping,
@@ -16,6 +18,8 @@ import {
   faUsers,
   faPlus,
   faPen,
+  faCoins,
+  faHeadset,
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React from 'react';
@@ -42,14 +46,25 @@ library.add(
   faUserLarge,
   faMapLocationDot,
   faPlus,
-  faPen
+  faPen,
+  faCoins,
+  faHeadset
 );
 axios.defaults.baseURL = 'https://react-e8310-default-rtdb.firebaseio.com/';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+        <ScrollToTop />
         <App />
       </Provider>
     </BrowserRouter>

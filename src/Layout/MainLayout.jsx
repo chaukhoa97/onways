@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Layout, Menu, Badge } from 'antd';
-import { NavLink, Redirect, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import SubMenu from 'antd/lib/menu/SubMenu';
+import { Badge, Layout, Menu } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import { adminActions } from '../Redux/admin';
 import { authActions } from '../Redux/auth';
 import { userActions } from '../Redux/user';
-import { adminActions } from '../Redux/admin';
 
 const { Header, Footer } = Layout;
 
