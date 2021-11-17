@@ -69,7 +69,6 @@ export const CartTable = (props) => {
           min={1}
           defaultValue={data.count}
           onChange={(value) => {
-            console.log(value);
             dispatch(
               userActions.changeCartCount({ id: data.id, count: value })
             );

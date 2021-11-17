@@ -26,8 +26,6 @@ const AdminUsers = () => {
     [dispatch]
   );
 
-  const order1 = useSelector((state) => state.user.orders);
-
   const calcOrderSpent = (orders = []) => {
     if (!Array.isArray(orders)) return 0;
     return orders.map((order) => {
@@ -36,8 +34,6 @@ const AdminUsers = () => {
       }, 0);
     });
   };
-
-  console.log(calcOrderSpent(order1));
 
   const calcUserSpent = (spents = []) => {
     if (!Array.isArray(spents)) return 0;
@@ -49,14 +45,11 @@ const AdminUsers = () => {
     );
   };
 
-  console.log(calcUserSpent(calcOrderSpent(order1)));
-
   const users = [
     ...useSelector((state) => state.admin.users).filter(
       (user) => user.isAdmin === false
     ),
   ];
-  console.log(users);
   const columns = [
     {
       title: 'Email',

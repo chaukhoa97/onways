@@ -81,9 +81,6 @@ const itemsSlice = createSlice({
     add(state, action) {
       state.databaseItems.push(action.payload);
     },
-    recent(state, action) {
-      state.showedItems = action.payload;
-    },
   },
 });
 

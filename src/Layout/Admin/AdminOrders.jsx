@@ -30,9 +30,8 @@ const AdminOrders = () => {
   );
 
   const handleStatus = useCallback(
-    (status, id) => {
-      console.log(status, id);
-      dispatch(adminActions.updateOrder({ status, id }));
+    (value, id) => {
+      dispatch(adminActions.updateOrder({ status: value, id }));
     },
     [dispatch]
   );
@@ -43,37 +42,39 @@ const AdminOrders = () => {
       dataIndex: 'id',
       key: 'status',
       align: 'center',
-      width: 200,
       render: (id) => {
         const status = orders[orders.findIndex((o) => o.id === id)].status;
-        let label;
-        if (status == 0) {
-          label = 'Chờ xác nhận';
-        } else if (status == 1) {
-          label = 'Đã xác nhận';
-        } else if (status == 2) {
-          label = 'Đang giao hàng';
-        } else if (status == 3) {
-          label = 'Hoàn tất';
-        }
+        const options = [
+          {
+            value: '0',
+            label: 'Chờ xác nhận',
+          },
+          {
+            value: '1',
+            label: 'Đã xác nhận',
+          },
+          {
+            value: '2',
+            label: 'Đang giao hàng',
+          },
+          {
+            value: '3',
+            label: 'Hoàn tất',
+          },
+        ];
         return (
           <Select
-            styles={{ width: '120px' }}
-            defaultValue={label}
-            onChange={(newValue) => handleStatus(newValue, id)}
+            style={{ width: '100%' }}
+            defaultValue={
+              options[_.findIndex(options, (o) => o.value == status)].label
+            }
+            onChange={(value) => handleStatus(value, id)}
           >
-            <Option value="0" key="0">
-              Chưa xác nhận
-            </Option>
-            <Option value="1" key="1">
-              Đã xác nhận
-            </Option>
-            <Option value="2" key="2">
-              Đang giao hàng
-            </Option>
-            <Option value="3" key="3">
-              Hoàn tất
-            </Option>
+            {options.map((option) => (
+              <Option key={option.value} value={option.value}>
+                {option.label}
+              </Option>
+            ))}
           </Select>
         );
       },
