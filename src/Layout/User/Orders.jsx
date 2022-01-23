@@ -145,7 +145,6 @@ const Orders = () => {
       align: 'center',
       render: (id) => {
         const status = orders[orders.findIndex((o) => o.id === id)].status;
-        console.log(id);
         return status >= 1 ? (
           <Tooltip title="Bạn không thể hủy những đơn hàng đã được xác nhận">
             <Button danger disabled onClick={handleDeleteButton}>

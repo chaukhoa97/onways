@@ -2,7 +2,6 @@ import { Statistic } from 'antd';
 
 const deadline = new Date('2021-12-25T00:00:00').getTime();
 const Countdown = (props) => {
-  console.log(deadline);
   return (
     <div className="countdown mt-5">
       <div className="d-flex flex-column justify-content-center align-items-center countdown__content">

@@ -4,7 +4,6 @@ import { useWindowSize } from 'react-use';
 
 const Features = () => {
   const { width } = useWindowSize();
-  console.log(width);
 
   return (
     <div
