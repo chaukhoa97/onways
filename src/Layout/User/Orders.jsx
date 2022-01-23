@@ -170,6 +170,7 @@ const Orders = () => {
         columns={columns}
         dataSource={orders}
         pagination={false}
+        rowKey="id"
         bordered
         scroll={{ x: 700 }}
       />
