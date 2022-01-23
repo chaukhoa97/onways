@@ -22,12 +22,14 @@ const LoginPage = () => {
             <h2
               className={!signUpMode ? 'active' : undefined}
               onClick={handleModeChange}
+              style={{ cursor: 'pointer' }}
             >
               Đăng nhập
             </h2>
             <h2
               className={signUpMode ? 'active' : undefined}
               onClick={handleModeChange}
+              style={{ cursor: 'pointer' }}
             >
               Đăng ký
             </h2>
@@ -269,8 +271,8 @@ function SignUpForm() {
             id="acceptTerms"
             {...register('acceptTerms', { required: true })}
           />
-          <label htmlFor="acceptTerms">
-            Bấm đăng ký đồng nghĩa với việc tôi đồng ý với các
+          <label>
+            Tôi đã đọc và đồng ý với những
             <span
               onClick={handleTerms}
               style={{ color: '#007bff', cursor: 'pointer' }}
@@ -283,8 +285,7 @@ function SignUpForm() {
         </div>
         {errors.acceptTerms && (
           <span className="error">
-            Bạn không thể đăng ký khi chưa đồng ý với những điều khoản của chúng
-            tôi!
+            Vui lòng đồng ý với những điều khoản của Onways trước khi đăng ký
           </span>
         )}
         <Button
