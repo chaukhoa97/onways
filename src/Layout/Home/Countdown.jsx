@@ -1,6 +1,6 @@
 import { Statistic } from 'antd';
 
-const deadline = new Date('2021-12-25T00:00:00').getTime();
+const deadline = new Date('2022-12-25T00:00:00').getTime();
 const Countdown = (props) => {
   return (
     <div className="countdown mt-5">

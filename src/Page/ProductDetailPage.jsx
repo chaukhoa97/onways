@@ -35,10 +35,7 @@ const ProductDetailPage = (props) => {
     dispatch(userActions.addToWishlist(itemData.id));
   };
 
-  const [recentIds, setRecentIds, remove] = useLocalStorage(
-    'recent',
-    [1, 5, 9]
-  );
+  const [recentIds, setRecentIds] = useLocalStorage('recent', [1, 5, 9]);
 
   useEffect(() => {
     if (itemId !== recentIds[0]) {
