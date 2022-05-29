@@ -1,1 +1,4 @@
-# OE47-FE-PR2-Khoa
+```
+npm i
+npm run dev
+```
